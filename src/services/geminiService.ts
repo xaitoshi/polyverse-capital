@@ -99,7 +99,7 @@ function buildPrompt(news: NewsItem[], markets: MarketData[]): string {
     }
   }
 
-  return `You are KalshiClaw — an elite prediction market analyst. Your job is to analyze breaking news and live market data to identify trading alpha across all active prediction markets (Kalshi via DFlow on Solana, and Polymarket).
+  return `You are Poly AI — an elite prediction market analyst. Your job is to analyze breaking news and live market data to identify trading alpha across all active prediction markets (Kalshi via DFlow on Solana, and Polymarket).
 
 BREAKING NEWS (most recent):
 ${newsBlock}
@@ -178,7 +178,7 @@ async function callAnalysisAI(prompt: string): Promise<{ signals: any[]; summary
   // Try Commonstack first
   if (COMMONSTACK_KEY) {
     try {
-      const systemMsg = 'You are KalshiClaw — an elite prediction market analyst. Return ONLY valid JSON with no markdown fences.';
+      const systemMsg = 'You are Poly AI — an elite prediction market analyst. Return ONLY valid JSON with no markdown fences.';
       const text = await callCommonstack(systemMsg, prompt);
       const parsed = parseAnalysisJson(text);
       if (parsed.signals.length > 0 || parsed.summary) return parsed;
@@ -277,7 +277,7 @@ export function hasGeminiKey(): boolean {
   return !!(GEMINI_KEY || COMMONSTACK_KEY);
 }
 
-// --- Chat with KalshiClaw ---
+// --- Chat with Poly AI ---
 
 export interface ChatMessage {
   role: 'user' | 'assistant';
@@ -286,7 +286,7 @@ export interface ChatMessage {
 }
 
 function buildChatSystemPrompt(): string {
-  return `You are KalshiClaw — an expert prediction market analyst and trading advisor. You have deep knowledge of prediction markets (Kalshi, Polymarket, DFlow), geopolitics, economics, sports, crypto, and current events. You have access to real-time breaking news and live prediction market data.
+  return `You are Poly AI — an expert prediction market analyst and trading advisor. You have deep knowledge of prediction markets (Kalshi, Polymarket, DFlow), geopolitics, economics, sports, crypto, and current events. You have access to real-time breaking news and live prediction market data.
 
 You can answer ANY question the user asks about prediction markets. This includes but is not limited to:
 - BUY/SELL/HOLD recommendations with confidence levels and reasoning

@@ -157,7 +157,7 @@ export default function OsintPanel({ marketData, onClose, onAlerts, onRefreshMar
           <div className="flex items-center gap-2 mb-2">
             <span className="px-2 py-0.5 bg-blue-500/20 text-blue-400 text-xs font-mono rounded border border-blue-500/30 flex items-center gap-1.5">
               <Activity className="w-3 h-3" />
-              KalshiClaw
+              Poly AI
             </span>
             {result && (
               <span className="text-[10px] font-mono text-gray-500">
@@ -233,7 +233,7 @@ export default function OsintPanel({ marketData, onClose, onAlerts, onRefreshMar
           <div className="mt-6 pt-4 border-t border-blue-500/20">
             <div className="flex items-center gap-2 mb-3">
               <MessageSquare className="w-3.5 h-3.5 text-blue-400" />
-              <h3 className="text-blue-400 font-mono text-sm uppercase tracking-wider">Ask KalshiClaw</h3>
+              <h3 className="text-blue-400 font-mono text-sm uppercase tracking-wider">Ask Poly AI</h3>
             </div>
 
             {chatMessages.length === 0 && !chatLoading && (

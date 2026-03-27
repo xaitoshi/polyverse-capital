@@ -108,7 +108,7 @@ export default function TopBar({ onOpenEcosystem, onOpenPolyEarn, onOpenOsint, o
             </button>
             <button onClick={onOpenOsint}
               className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${isOsintOpen ? 'border border-blue-500/50 text-blue-400 bg-blue-500/10' : 'text-gray-400 hover:text-blue-400'}`}>
-              <Activity className="w-4 h-4" /> KalshiClaw
+              <Activity className="w-4 h-4" /> Poly AI
             </button>
           </div>
           <div className="flex items-center bg-black/60 border border-blue-500/30 backdrop-blur-md rounded-lg px-2 py-1 gap-1">
@@ -182,7 +182,7 @@ export default function TopBar({ onOpenEcosystem, onOpenPolyEarn, onOpenOsint, o
             </button>
             <button onClick={() => { onOpenOsint(); closeAll(); }}
               className={`flex items-center justify-center gap-2 py-3 border rounded-lg text-sm font-mono transition-colors ${isOsintOpen ? 'bg-blue-500/20 border-blue-500/50 text-blue-400' : 'bg-white/5 border-blue-500/20 text-gray-300 hover:bg-blue-500/10 hover:text-blue-400'}`}>
-              <Activity className="w-4 h-4" /> KalshiClaw
+              <Activity className="w-4 h-4" /> Poly AI
             </button>
             <button onClick={() => { onOpenEcosystem(); closeAll(); }}
               className="flex items-center justify-center gap-2 py-3 bg-white/5 border border-blue-500/20 text-gray-300 rounded-lg text-sm font-mono hover:bg-blue-500/10 hover:text-blue-400 transition-colors">
