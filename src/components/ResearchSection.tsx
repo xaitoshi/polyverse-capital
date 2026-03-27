@@ -290,7 +290,7 @@ export default function ResearchSection() {
 
       {/* ── Trade tracker ── */}
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <h2 className="text-blue-400 font-bold tracking-wider text-lg mb-2">// POLYMARKET ACCOUNT TRACKER</h2>
+        <h2 className="text-blue-400 font-bold tracking-wider text-lg mb-2">// POLYMARKET ACCOUNT TRACKER AND ANALYSER</h2>
         <p className="text-gray-500 text-xs mb-6">Enter any Polymarket wallet address to track their positions and trade activity.</p>
 
         {/* Input */}
