@@ -419,6 +419,41 @@ Based on this data, write a concise 3-5 paragraph analysis covering:
 Be specific and reference actual trades/positions from the data. Write in plain text, no JSON, no bullet points — flowing paragraphs like an analyst report.`;
 }
 
+export async function getAccountOneLiner(trades: PolyTrade[], positions: PolyPosition[]): Promise<string> {
+  if (!GEMINI_KEY && !COMMONSTACK_KEY) return 'API keys not configured.';
+  if (trades.length === 0 && positions.length === 0) return 'Insufficient trading data.';
+  if (!incrementUsage()) return 'Daily API limit reached.';
+
+  const tradeBlock = trades.slice(0, 30)
+    .map(t => `${t.type} ${t.outcome.toUpperCase()} "${t.title}" @ ${(t.price * 100).toFixed(0)}¢`)
+    .join(', ');
+  const posBlock = positions.slice(0, 20)
+    .map(p => `${p.outcome.toUpperCase()} "${p.title}" @ ${(p.avgPrice * 100).toFixed(0)}¢`)
+    .join(', ');
+
+  const prompt = `Summarise this Polymarket trader's strategy in exactly ONE sentence (max 20 words). Be specific about what they trade and how.
+
+Trades: ${tradeBlock || 'none'}
+Positions: ${posBlock || 'none'}
+
+Reply with only the sentence, nothing else.`;
+
+  if (COMMONSTACK_KEY) {
+    try {
+      const r = await callCommonstack('You are a concise trading analyst. Reply with one sentence only.', prompt);
+      if (r) return r.trim().replace(/^"|"$/g, '');
+    } catch { /* fall through */ }
+  }
+  if (GEMINI_KEY) {
+    try {
+      const ai = new GoogleGenAI({ apiKey: GEMINI_KEY });
+      const r = await ai.models.generateContent({ model: 'gemini-2.0-flash', contents: prompt });
+      return r.text?.trim().replace(/^"|"$/g, '') || 'Strategy analysis unavailable.';
+    } catch { /* fall through */ }
+  }
+  return 'Strategy analysis unavailable.';
+}
+
 export async function analyzeAccountStrategy(trades: PolyTrade[], positions: PolyPosition[]): Promise<string> {
   if (!GEMINI_KEY && !COMMONSTACK_KEY) {
     return 'No API keys configured. Add GEMINI_API_KEY or COMMONSTACK_API_KEY to .env.local to enable strategy analysis.';

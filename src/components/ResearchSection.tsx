@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { BookOpen, Clock, ArrowUpRight, Search, X, Loader2, ExternalLink, Brain } from 'lucide-react';
-import { analyzeAccountStrategy } from '../services/geminiService';
+import { BookOpen, Clock, ArrowUpRight, Search, X, Loader2, ExternalLink, Brain, Trophy } from 'lucide-react';
+import { analyzeAccountStrategy, getAccountOneLiner } from '../services/geminiService';
 import TradeJournal from './TradeJournal';
 import {
   fetchPolyActivity,
@@ -40,11 +40,38 @@ function fmtDate(ts: number) {
 
 // ─── Wallet tracker ───────────────────────────────────────────────────────────
 
+const SAVED_WALLETS_KEY = 'pvrs_saved_wallets';
+const ONELINERS_KEY = 'pvrs_oneliners';
+
+function getSavedAddresses(): string[] {
+  try { return JSON.parse(localStorage.getItem(SAVED_WALLETS_KEY) || '[]'); } catch { return []; }
+}
+function saveAddresses(addresses: string[]) {
+  localStorage.setItem(SAVED_WALLETS_KEY, JSON.stringify(addresses));
+}
+function getCachedOneLiner(address: string): string {
+  try { return JSON.parse(localStorage.getItem(ONELINERS_KEY) || '{}')[address.toLowerCase()] || ''; } catch { return ''; }
+}
+function cacheOneLiner(address: string, text: string) {
+  try {
+    const all = JSON.parse(localStorage.getItem(ONELINERS_KEY) || '{}');
+    all[address.toLowerCase()] = text;
+    localStorage.setItem(ONELINERS_KEY, JSON.stringify(all));
+  } catch { /* ignore */ }
+}
+
+function calcWinRate(positions: PolyPosition[]): { wins: number; total: number; pct: number } {
+  const closed = positions.filter(p => p.closed);
+  const wins = closed.filter(p => p.cashPnl > 0).length;
+  return { wins, total: closed.length, pct: closed.length > 0 ? Math.round((wins / closed.length) * 100) : 0 };
+}
+
 interface TrackedAccount {
   address: string;
   profile: PolyProfile | null;
   trades: PolyTrade[];
   positions: PolyPosition[];
+  oneLiner: string;
 }
 
 function shortAddr(addr: string) {
@@ -73,49 +100,65 @@ function AccountCard({ account, onRemove }: { account: TrackedAccount; onRemove:
 
   const totalPnl = account.positions.reduce((s, p) => s + p.cashPnl, 0);
   const openCount = account.positions.filter(p => !p.closed).length;
+  const winRate = calcWinRate(account.positions);
 
   return (
     <div className="border border-blue-500/20 rounded-lg overflow-hidden mb-4">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-4 bg-blue-500/5 border-b border-blue-500/20">
-        <div className="flex items-center gap-3">
-          {account.profile?.pfpUrl || account.profile?.profileImage ? (
-            <img src={account.profile.pfpUrl ?? account.profile.profileImage} className="w-8 h-8 rounded-full border border-blue-500/30" alt="" />
-          ) : (
-            <div className="w-8 h-8 rounded-full border border-blue-500/30 bg-blue-500/10 flex items-center justify-center text-blue-400 text-xs font-mono">
-              {account.address.slice(2, 4).toUpperCase()}
+      <div className="px-5 py-4 bg-blue-500/5 border-b border-blue-500/20">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            {account.profile?.pfpUrl || account.profile?.profileImage ? (
+              <img src={account.profile.pfpUrl ?? account.profile.profileImage} className="w-8 h-8 rounded-full border border-blue-500/30" alt="" />
+            ) : (
+              <div className="w-8 h-8 rounded-full border border-blue-500/30 bg-blue-500/10 flex items-center justify-center text-blue-400 text-xs font-mono">
+                {account.address.slice(2, 4).toUpperCase()}
+              </div>
+            )}
+            <div>
+              <div className="text-sm font-bold text-blue-400 font-mono">
+                {account.profile?.displayName ?? shortAddr(account.address)}
+              </div>
+              <div className="text-[10px] text-gray-500 font-mono">{shortAddr(account.address)}</div>
             </div>
-          )}
-          <div>
-            <div className="text-sm font-bold text-blue-400 font-mono">
-              {account.profile?.displayName ?? shortAddr(account.address)}
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="text-right hidden sm:block">
+              <div className={`text-sm font-mono font-bold ${totalPnl >= 0 ? 'text-blue-400' : 'text-red-400'}`}>
+                {totalPnl >= 0 ? '+' : ''}${fmt(totalPnl)}
+              </div>
+              <div className="text-[10px] text-gray-500">unrealised P&L</div>
             </div>
-            <div className="text-[10px] text-gray-500 font-mono">{shortAddr(account.address)}</div>
+            <div className="text-right hidden sm:block">
+              <div className="text-sm font-mono font-bold text-yellow-400">{openCount}</div>
+              <div className="text-[10px] text-gray-500">open positions</div>
+            </div>
+            {winRate.total > 0 && (
+              <div className="text-right hidden sm:block">
+                <div className={`text-sm font-mono font-bold flex items-center gap-1 justify-end ${winRate.pct >= 50 ? 'text-green-400' : 'text-red-400'}`}>
+                  <Trophy className="w-3 h-3" />{winRate.pct}%
+                </div>
+                <div className="text-[10px] text-gray-500">win rate ({winRate.wins}/{winRate.total})</div>
+              </div>
+            )}
+            <a
+              href={`https://polymarket.com/profile/${account.address}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500 hover:text-blue-400 transition-colors"
+            >
+              <ExternalLink className="w-4 h-4" />
+            </a>
+            <button onClick={onRemove} className="text-gray-600 hover:text-red-400 transition-colors">
+              <X className="w-4 h-4" />
+            </button>
           </div>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="text-right hidden sm:block">
-            <div className={`text-sm font-mono font-bold ${totalPnl >= 0 ? 'text-blue-400' : 'text-red-400'}`}>
-              {totalPnl >= 0 ? '+' : ''}${fmt(totalPnl)}
-            </div>
-            <div className="text-[10px] text-gray-500">unrealised P&L</div>
+        {account.oneLiner && (
+          <div className="mt-2.5 ml-11 text-[11px] text-gray-400 font-mono italic border-l-2 border-blue-500/20 pl-3">
+            {account.oneLiner}
           </div>
-          <div className="text-right hidden sm:block">
-            <div className="text-sm font-mono font-bold text-yellow-400">{openCount}</div>
-            <div className="text-[10px] text-gray-500">open positions</div>
-          </div>
-          <a
-            href={`https://polymarket.com/profile/${account.address}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-500 hover:text-blue-400 transition-colors"
-          >
-            <ExternalLink className="w-4 h-4" />
-          </a>
-          <button onClick={onRemove} className="text-gray-600 hover:text-red-400 transition-colors">
-            <X className="w-4 h-4" />
-          </button>
-        </div>
+        )}
       </div>
 
       {/* Tabs */}
@@ -247,15 +290,61 @@ export default function ResearchSection() {
   const [input, setInput] = useState('');
   const [accounts, setAccounts] = useState<TrackedAccount[]>([]);
   const [loading, setLoading] = useState(false);
+  const [loadingAddr, setLoadingAddr] = useState<string>('');
   const [error, setError] = useState('');
   const [articles, setArticles] = useState<Article[]>(() => getArticles());
 
-  // Refresh articles when admin saves (storage event from same tab via custom event)
+  // Refresh articles when admin saves
   useEffect(() => {
     const onStorage = () => setArticles(getArticles());
     window.addEventListener('klvs_articles_updated', onStorage);
     return () => window.removeEventListener('klvs_articles_updated', onStorage);
   }, []);
+
+  // On mount: reload all saved wallets
+  useEffect(() => {
+    const saved = getSavedAddresses();
+    if (saved.length === 0) return;
+    saved.forEach(address => fetchAndAdd(address, false));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  async function fetchAndAdd(address: string, saveToStorage: boolean) {
+    setLoadingAddr(address);
+    try {
+      const [profile, trades, positions] = await Promise.all([
+        fetchPolyProfile(address),
+        fetchPolyActivity(address, 50),
+        fetchPolyPositions(address),
+      ]);
+      // Get 1-liner from cache or generate it
+      let oneLiner = getCachedOneLiner(address);
+      const newAccount: TrackedAccount = { address, profile, trades, positions, oneLiner };
+      setAccounts(prev => {
+        const exists = prev.some(a => a.address.toLowerCase() === address.toLowerCase());
+        return exists ? prev : [...prev, newAccount];
+      });
+      if (saveToStorage) {
+        const saved = getSavedAddresses();
+        if (!saved.map(s => s.toLowerCase()).includes(address.toLowerCase())) {
+          saveAddresses([...saved, address]);
+        }
+      }
+      // Generate 1-liner in background if not cached
+      if (!oneLiner) {
+        getAccountOneLiner(trades, positions).then(text => {
+          cacheOneLiner(address, text);
+          setAccounts(prev => prev.map(a =>
+            a.address.toLowerCase() === address.toLowerCase() ? { ...a, oneLiner: text } : a
+          ));
+        }).catch(() => {});
+      }
+    } catch (e: any) {
+      if (saveToStorage) setError(e.message ?? 'Failed to fetch account');
+    } finally {
+      setLoadingAddr('');
+    }
+  }
 
   const addAccount = useCallback(async () => {
     const address = input.trim();
@@ -267,22 +356,19 @@ export default function ResearchSection() {
     setError('');
     setLoading(true);
     try {
-      const [profile, trades, positions] = await Promise.all([
-        fetchPolyProfile(address),
-        fetchPolyActivity(address, 50),
-        fetchPolyPositions(address),
-      ]);
-      setAccounts(prev => [...prev, { address, profile, trades, positions }]);
+      await fetchAndAdd(address, true);
       setInput('');
-    } catch (e: any) {
-      setError(e.message ?? 'Failed to fetch account');
     } finally {
       setLoading(false);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input, accounts]);
 
-  const removeAccount = (address: string) =>
+  const removeAccount = (address: string) => {
     setAccounts(prev => prev.filter(a => a.address !== address));
+    const saved = getSavedAddresses().filter(a => a.toLowerCase() !== address.toLowerCase());
+    saveAddresses(saved);
+  };
 
   return (
     <div className="bg-[#050505] text-white font-mono">
@@ -318,7 +404,14 @@ export default function ResearchSection() {
 
         {error && <p className="text-red-400 text-xs mb-4 font-mono">{error}</p>}
 
-        {accounts.length === 0 && !loading && (
+        {loadingAddr && (
+          <div className="flex items-center gap-2 text-xs text-gray-500 font-mono mb-4">
+            <Loader2 className="w-3 h-3 animate-spin text-blue-400" />
+            Loading {shortAddr(loadingAddr)}…
+          </div>
+        )}
+
+        {accounts.length === 0 && !loading && !loadingAddr && (
           <div className="border border-blue-500/10 rounded-lg p-8 text-center text-gray-600 text-xs">
             No accounts tracked yet. Add a Polymarket wallet address above.
           </div>
