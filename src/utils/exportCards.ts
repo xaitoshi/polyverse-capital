@@ -79,7 +79,7 @@ export async function exportCardsAsImage(elements: HTMLElement[]) {
   ctx.fillStyle = '#374151';
   ctx.font = '18px monospace';
   ctx.textAlign = 'right';
-  ctx.fillText('KALSHIVERSE.COM', totalW - OUTER_PAD, totalH - 12);
+  ctx.fillText('POLYVERSE.CAPITAL', totalW - OUTER_PAD, totalH - 12);
 
   // Download
   await new Promise<void>((resolve, reject) => {
