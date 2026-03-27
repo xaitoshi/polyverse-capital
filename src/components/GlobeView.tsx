@@ -40,13 +40,13 @@ function createSatelliteObject(): THREE.Object3D {
 
   // Main body — small glowing green sphere
   const bodyGeom = new THREE.SphereGeometry(1.2, 16, 16);
-  const bodyMat = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+  const bodyMat = new THREE.MeshBasicMaterial({ color: 0x0066ff });
   const body = new THREE.Mesh(bodyGeom, bodyMat);
   group.add(body);
 
   // Glow ring
   const ringGeom = new THREE.RingGeometry(1.8, 2.2, 32);
-  const ringMat = new THREE.MeshBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.4, side: THREE.DoubleSide });
+  const ringMat = new THREE.MeshBasicMaterial({ color: 0x0066ff, transparent: true, opacity: 0.4, side: THREE.DoubleSide });
   const ring = new THREE.Mesh(ringGeom, ringMat);
   ring.rotation.x = Math.PI / 2;
   group.add(ring);
@@ -259,7 +259,7 @@ export default function GlobeView({ data, onMarkerClick, osintAlerts = [] }: Glo
         polygonAltitude={0.005}
         polygonCapColor={() => 'rgba(0, 20, 0, 0.4)'}
         polygonSideColor={() => 'rgba(0, 255, 0, 0.05)'}
-        polygonStrokeColor={() => '#00ff0044'}
+        polygonStrokeColor={() => '#0066ff44'}
         pointsData={data}
         pointLat="lat"
         pointLng="lng"

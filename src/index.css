@@ -23,15 +23,15 @@ body {
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(0, 255, 0, 0.05);
+  background: rgba(0, 100, 255, 0.05);
   border-radius: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(0, 255, 0, 0.2);
+  background: rgba(0, 100, 255, 0.2);
   border-radius: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 255, 0, 0.4);
+  background: rgba(0, 100, 255, 0.4);
 }

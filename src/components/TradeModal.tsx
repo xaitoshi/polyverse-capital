@@ -134,20 +134,20 @@ export default function TradeModal({ market, onClose }: TradeModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-md bg-black/90 border border-green-500/30 backdrop-blur-xl rounded-xl p-6 shadow-[0_0_40px_rgba(0,255,0,0.1)] mx-4">
+      <div className="relative w-full max-w-md bg-black/90 border border-blue-500/30 backdrop-blur-xl rounded-xl p-6 shadow-[0_0_40px_rgba(0,255,0,0.1)] mx-4">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-green-400 transition-colors"
+          className="absolute top-4 right-4 text-gray-400 hover:text-blue-400 transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
 
         <div className="mb-5">
           <div className="flex items-center gap-2 mb-2">
-            <span className="px-2 py-0.5 bg-green-500/20 text-green-400 text-xs font-mono rounded border border-green-500/30">
+            <span className="px-2 py-0.5 bg-blue-500/20 text-blue-400 text-xs font-mono rounded border border-blue-500/30">
               KALSHI
             </span>
-            <span className="px-2 py-0.5 bg-green-500/10 text-green-500/70 text-xs font-mono rounded">
+            <span className="px-2 py-0.5 bg-blue-500/10 text-blue-500/70 text-xs font-mono rounded">
               DFlow
             </span>
           </div>
@@ -159,7 +159,7 @@ export default function TradeModal({ market, onClose }: TradeModalProps) {
             <button
               onClick={handleConnect}
               disabled={connecting}
-              className="w-full py-4 rounded-lg font-mono text-sm bg-green-500/20 hover:bg-green-500/30 border border-green-500/50 text-green-400 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full py-4 rounded-lg font-mono text-sm bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/50 text-blue-400 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {connecting ? (
                 <><Loader2 className="w-4 h-4 animate-spin" /> Connecting...</>
@@ -176,8 +176,8 @@ export default function TradeModal({ market, onClose }: TradeModalProps) {
                 onClick={() => setSide('yes')}
                 className={`flex-1 py-3 rounded-lg font-mono text-sm transition-colors flex flex-col items-center gap-1 border ${
                   side === 'yes'
-                    ? 'bg-green-500/20 border-green-500/50 text-green-400'
-                    : 'bg-black/40 border-green-500/10 text-gray-500 hover:border-green-500/30'
+                    ? 'bg-blue-500/20 border-blue-500/50 text-blue-400'
+                    : 'bg-black/40 border-blue-500/10 text-gray-500 hover:border-blue-500/30'
                 }`}
               >
                 <span className="text-xs">BUY YES</span>
@@ -205,12 +205,12 @@ export default function TradeModal({ market, onClose }: TradeModalProps) {
                 placeholder="10"
                 min="0.01"
                 step="1"
-                className="w-full bg-black/40 border border-green-500/20 rounded-lg px-4 py-3 text-white font-mono text-lg focus:outline-none focus:border-green-500/50 transition-colors"
+                className="w-full bg-black/40 border border-blue-500/20 rounded-lg px-4 py-3 text-white font-mono text-lg focus:outline-none focus:border-blue-500/50 transition-colors"
                 disabled={state !== 'idle' && state !== 'error'}
               />
             </div>
 
-            <div className="bg-black/40 border border-green-500/10 rounded-lg px-4 py-3 mb-4 space-y-1">
+            <div className="bg-black/40 border border-blue-500/10 rounded-lg px-4 py-3 mb-4 space-y-1">
               <div className="flex justify-between text-sm font-mono">
                 <span className="text-gray-500">Est. tokens</span>
                 <span className="text-gray-300">~{estTokens.toFixed(2)}</span>
@@ -231,24 +231,24 @@ export default function TradeModal({ market, onClose }: TradeModalProps) {
               <button
                 onClick={handleTrade}
                 disabled={usdcAmount <= 0 || !outcomeMint}
-                className="w-full py-3 rounded-lg font-mono text-sm transition-colors flex items-center justify-center gap-2 bg-green-500/20 hover:bg-green-500/30 border border-green-500/50 text-green-400 disabled:opacity-40 disabled:cursor-not-allowed"
+                className="w-full py-3 rounded-lg font-mono text-sm transition-colors flex items-center justify-center gap-2 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/50 text-blue-400 disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 Place Order
               </button>
             ) : state === 'filled' ? (
               <div className="text-center space-y-2">
-                <div className="text-green-400 font-mono text-sm font-bold">Order Filled!</div>
+                <div className="text-blue-400 font-mono text-sm font-bold">Order Filled!</div>
                 {txSignature && (
                   <button
                     onClick={() => window.open(`https://solscan.io/tx/${txSignature}`, '_blank', 'noopener,noreferrer')}
-                    className="inline-flex items-center gap-1 text-green-400/70 hover:text-green-400 text-xs font-mono transition-colors"
+                    className="inline-flex items-center gap-1 text-blue-400/70 hover:text-blue-400 text-xs font-mono transition-colors"
                   >
                     View on Solscan <ExternalLink className="w-3 h-3" />
                   </button>
                 )}
               </div>
             ) : (
-              <div className="flex items-center justify-center gap-2 py-3 text-green-400/70 font-mono text-sm">
+              <div className="flex items-center justify-center gap-2 py-3 text-blue-400/70 font-mono text-sm">
                 <Loader2 className="w-4 h-4 animate-spin" />
                 {statusText[state]}
               </div>
@@ -262,14 +262,14 @@ export default function TradeModal({ market, onClose }: TradeModalProps) {
               <div className="mt-2 text-center">
                 <button
                   onClick={() => window.open(`https://solscan.io/tx/${txSignature}`, '_blank', 'noopener,noreferrer')}
-                  className="inline-flex items-center gap-1 text-gray-500 hover:text-green-400 text-xs font-mono transition-colors"
+                  className="inline-flex items-center gap-1 text-gray-500 hover:text-blue-400 text-xs font-mono transition-colors"
                 >
                   Tx: {txSignature.slice(0, 8)}...{txSignature.slice(-8)} <ExternalLink className="w-3 h-3" />
                 </button>
               </div>
             )}
 
-            <div className="mt-3 pt-3 border-t border-green-500/10 text-center">
+            <div className="mt-3 pt-3 border-t border-blue-500/10 text-center">
               <span className="text-gray-600 text-[10px] font-mono">
                 {publicKey?.toBase58().slice(0, 4)}...{publicKey?.toBase58().slice(-4)} connected
               </span>

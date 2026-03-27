@@ -73,25 +73,25 @@ export default function LiveNewsFeed() {
   return (
     <div className="absolute left-6 top-24 bottom-24 w-80 pointer-events-none flex flex-col z-10">
       <div className="flex items-center justify-between mb-4 px-2 pointer-events-auto shrink-0">
-        <div className="flex items-center gap-2 text-green-400 font-mono text-sm">
+        <div className="flex items-center gap-2 text-blue-400 font-mono text-sm">
           <Zap className="w-4 h-4 animate-pulse" />
           LIVE FEED
           {hasApiKeys() && (
-            <span className="text-[9px] text-green-500/50 font-mono">API</span>
+            <span className="text-[9px] text-blue-500/50 font-mono">API</span>
           )}
         </div>
 
         <div className="relative">
           <button
             onClick={() => setIsFilterOpen(!isFilterOpen)}
-            className="flex items-center gap-1.5 text-gray-400 hover:text-green-400 text-xs font-mono bg-black/60 px-3 py-1.5 rounded border border-green-500/30 transition-colors backdrop-blur-md"
+            className="flex items-center gap-1.5 text-gray-400 hover:text-blue-400 text-xs font-mono bg-black/60 px-3 py-1.5 rounded border border-blue-500/30 transition-colors backdrop-blur-md"
           >
             <Filter className="w-4 h-4" />
             {selectedRegion}
           </button>
 
           {isFilterOpen && (
-            <div className="absolute top-full mt-2 right-0 bg-black/90 border border-green-500/30 rounded-lg p-1 w-40 backdrop-blur-md shadow-xl z-50">
+            <div className="absolute top-full mt-2 right-0 bg-black/90 border border-blue-500/30 rounded-lg p-1 w-40 backdrop-blur-md shadow-xl z-50">
               {REGIONS.map(region => (
                 <button
                   key={region}
@@ -103,7 +103,7 @@ export default function LiveNewsFeed() {
                   }}
                   className={`w-full text-left px-3 py-2 text-xs font-mono rounded transition-colors ${
                     selectedRegion === region
-                      ? 'bg-green-500/20 text-green-400'
+                      ? 'bg-blue-500/20 text-blue-400'
                       : 'text-gray-400 hover:bg-white/10 hover:text-gray-200'
                   }`}
                 >
@@ -124,17 +124,17 @@ export default function LiveNewsFeed() {
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
               transition={{ type: "spring", stiffness: 400, damping: 30 }}
-              className="bg-black/60 border border-green-500/30 backdrop-blur-md rounded-lg p-3 pointer-events-auto shadow-[0_0_15px_rgba(0,255,0,0.05)] shrink-0"
+              className="bg-black/60 border border-blue-500/30 backdrop-blur-md rounded-lg p-3 pointer-events-auto shadow-[0_0_15px_rgba(0,255,0,0.05)] shrink-0"
             >
               <div className="flex justify-between items-center mb-1">
                 <div className="flex items-center gap-2">
-                  <div className="text-green-500/70 text-xs font-mono">{item.time}</div>
+                  <div className="text-blue-500/70 text-xs font-mono">{item.time}</div>
                   {item.source && item.source !== 'Mock' && (
                     <div className="text-[9px] font-mono text-gray-500 truncate max-w-[100px]">{item.source}</div>
                   )}
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <div className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-green-500/10 text-green-400/70 border border-green-500/20">
+                  <div className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-400/70 border border-blue-500/20">
                     {item.region}
                   </div>
                   {item.url && (
@@ -142,7 +142,7 @@ export default function LiveNewsFeed() {
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-500 hover:text-green-400 transition-colors"
+                      className="text-gray-500 hover:text-blue-400 transition-colors"
                       onClick={e => e.stopPropagation()}
                     >
                       <ExternalLink className="w-3 h-3" />

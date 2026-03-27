@@ -199,8 +199,8 @@ export default function AdminModal({ onClose }: AdminModalProps) {
             <X className="w-5 h-5" />
           </button>
           <div className="flex flex-col items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-green-500/20 border border-green-500/30 flex items-center justify-center">
-              <Lock className="w-6 h-6 text-green-400" />
+            <div className="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center">
+              <Lock className="w-6 h-6 text-blue-400" />
             </div>
             <h2 className="text-xl font-bold text-white">Admin Access</h2>
             <p className="text-gray-500 text-sm text-center font-mono">Enter the admin password to continue</p>
@@ -212,7 +212,7 @@ export default function AdminModal({ onClose }: AdminModalProps) {
               placeholder="Password"
               autoFocus
               className={`w-full bg-black border rounded-lg px-4 py-3 text-white font-mono text-sm focus:outline-none transition-colors ${
-                passwordError ? 'border-red-500/50 focus:border-red-500' : 'border-gray-700 focus:border-green-500'
+                passwordError ? 'border-red-500/50 focus:border-red-500' : 'border-gray-700 focus:border-blue-500'
               }`}
             />
             {passwordError && (
@@ -220,7 +220,7 @@ export default function AdminModal({ onClose }: AdminModalProps) {
             )}
             <button
               onClick={handlePasswordSubmit}
-              className="w-full py-3 bg-green-500/20 hover:bg-green-500/30 border border-green-500/50 text-green-400 rounded-lg font-mono text-sm transition-colors"
+              className="w-full py-3 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/50 text-blue-400 rounded-lg font-mono text-sm transition-colors"
             >
               Unlock
             </button>
@@ -242,7 +242,7 @@ export default function AdminModal({ onClose }: AdminModalProps) {
           <div className="flex items-center gap-4">
             <button
               onClick={handleSave}
-              className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-500 text-white rounded-lg text-sm font-medium transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-medium transition-colors"
             >
               <Save className="w-4 h-4" />
               Save Changes
@@ -261,7 +261,7 @@ export default function AdminModal({ onClose }: AdminModalProps) {
               onClick={() => setActiveTab(tab)}
               className={`px-4 py-3 text-sm font-mono transition-colors capitalize ${
                 activeTab === tab
-                  ? 'text-green-400 border-b-2 border-green-400 -mb-px'
+                  ? 'text-blue-400 border-b-2 border-blue-400 -mb-px'
                   : 'text-gray-500 hover:text-gray-300'
               }`}
             >
@@ -279,7 +279,7 @@ export default function AdminModal({ onClose }: AdminModalProps) {
                 <h3 className="text-lg font-medium text-gray-200">Projects List</h3>
                 <button
                   onClick={handleAdd}
-                  className="flex items-center gap-2 px-3 py-1.5 bg-gray-800 hover:bg-gray-700 text-green-400 rounded-lg text-sm font-mono transition-colors border border-gray-700"
+                  className="flex items-center gap-2 px-3 py-1.5 bg-gray-800 hover:bg-gray-700 text-blue-400 rounded-lg text-sm font-mono transition-colors border border-gray-700"
                 >
                   <Plus className="w-4 h-4" />
                   Add Project
@@ -308,7 +308,7 @@ export default function AdminModal({ onClose }: AdminModalProps) {
                                 value={formData.name || ''}
                                 onChange={e => setFormData({...formData, name: e.target.value})}
                                 placeholder="Project Name"
-                                className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-green-500 outline-none"
+                                className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-blue-500 outline-none"
                               />
                               <div className="flex items-center gap-2">
                                 {formData.logo && (
@@ -335,7 +335,7 @@ export default function AdminModal({ onClose }: AdminModalProps) {
                                   value={formData.logo?.startsWith('data:') ? '' : (formData.logo || '')}
                                   onChange={e => setFormData({...formData, logo: e.target.value})}
                                   placeholder="Paste URL"
-                                  className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-green-500 outline-none flex-1"
+                                  className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-blue-500 outline-none flex-1"
                                 />
                               </div>
                               <textarea
@@ -343,7 +343,7 @@ export default function AdminModal({ onClose }: AdminModalProps) {
                                 onChange={e => setFormData({...formData, description: e.target.value})}
                                 placeholder="Description"
                                 rows={2}
-                                className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-green-500 outline-none resize-none"
+                                className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-blue-500 outline-none resize-none"
                               />
                             </div>
                           ) : (
@@ -367,7 +367,7 @@ export default function AdminModal({ onClose }: AdminModalProps) {
                             <select
                               value={formData.platform || 'Both'}
                               onChange={e => setFormData({...formData, platform: e.target.value as any})}
-                              className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-green-500 outline-none"
+                              className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-blue-500 outline-none"
                             >
                               <option value="Polymarket">Polymarket</option>
                               <option value="Kalshi">Kalshi</option>
@@ -385,20 +385,20 @@ export default function AdminModal({ onClose }: AdminModalProps) {
                                 value={formData.token || ''}
                                 onChange={e => setFormData({...formData, token: e.target.value})}
                                 placeholder="Token Symbol"
-                                className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-green-500 outline-none w-32"
+                                className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-blue-500 outline-none w-32"
                               />
                               <input
                                 type="text"
                                 value={formData.tokenLink || ''}
                                 onChange={e => setFormData({...formData, tokenLink: e.target.value})}
                                 placeholder="Token URL"
-                                className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-green-500 outline-none w-32"
+                                className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-blue-500 outline-none w-32"
                               />
                             </div>
                           ) : (
                             <div className="flex flex-col">
                               {project.tokenLink ? (
-                                <a href={project.tokenLink} target="_blank" rel="noopener noreferrer" className="text-sm text-green-400 hover:text-green-300 font-mono">{project.token || '-'}</a>
+                                <a href={project.tokenLink} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-400 hover:text-blue-300 font-mono">{project.token || '-'}</a>
                               ) : (
                                 <span className="text-sm text-gray-400 font-mono">{project.token || '-'}</span>
                               )}
@@ -412,7 +412,7 @@ export default function AdminModal({ onClose }: AdminModalProps) {
                               value={formData.link || ''}
                               onChange={e => setFormData({...formData, link: e.target.value})}
                               placeholder="https://..."
-                              className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-green-500 outline-none w-48"
+                              className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-blue-500 outline-none w-48"
                             />
                           ) : (
                             <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-400 hover:underline truncate max-w-[150px] inline-block">
@@ -424,7 +424,7 @@ export default function AdminModal({ onClose }: AdminModalProps) {
                           {editingId === project.id ? (
                             <button
                               onClick={saveEdit}
-                              className="px-3 py-1.5 bg-green-500/20 text-green-400 rounded hover:bg-green-500/30 text-sm font-medium transition-colors"
+                              className="px-3 py-1.5 bg-blue-500/20 text-blue-400 rounded hover:bg-blue-500/30 text-sm font-medium transition-colors"
                             >
                               Done
                             </button>
@@ -467,7 +467,7 @@ export default function AdminModal({ onClose }: AdminModalProps) {
                 <h3 className="text-lg font-medium text-gray-200">Articles</h3>
                 <button
                   onClick={handleAddArticle}
-                  className="flex items-center gap-2 px-3 py-1.5 bg-gray-800 hover:bg-gray-700 text-green-400 rounded-lg text-sm font-mono transition-colors border border-gray-700"
+                  className="flex items-center gap-2 px-3 py-1.5 bg-gray-800 hover:bg-gray-700 text-blue-400 rounded-lg text-sm font-mono transition-colors border border-gray-700"
                 >
                   <Plus className="w-4 h-4" />
                   Add Article
@@ -484,13 +484,13 @@ export default function AdminModal({ onClose }: AdminModalProps) {
                     onChange={e => { setSubstackUrl(e.target.value); setImportError(''); }}
                     onKeyDown={e => e.key === 'Enter' && importFromSubstack()}
                     placeholder="Paste Substack URL to import…"
-                    className="w-full bg-black border border-gray-700 rounded pl-9 pr-4 py-2 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-green-500"
+                    className="w-full bg-black border border-gray-700 rounded pl-9 pr-4 py-2 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-blue-500"
                   />
                 </div>
                 <button
                   onClick={importFromSubstack}
                   disabled={importing || !substackUrl.trim()}
-                  className="px-4 py-2 bg-gray-800 hover:bg-gray-700 border border-gray-700 text-green-400 rounded text-sm font-mono transition-colors disabled:opacity-40 flex items-center gap-2"
+                  className="px-4 py-2 bg-gray-800 hover:bg-gray-700 border border-gray-700 text-blue-400 rounded text-sm font-mono transition-colors disabled:opacity-40 flex items-center gap-2"
                 >
                   {importing ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
                   {importing ? 'Importing…' : 'Import'}
@@ -508,14 +508,14 @@ export default function AdminModal({ onClose }: AdminModalProps) {
                           value={articleForm.title || ''}
                           onChange={e => setArticleForm({ ...articleForm, title: e.target.value })}
                           placeholder="Title"
-                          className="bg-black border border-gray-700 rounded px-3 py-2 text-sm text-white focus:border-green-500 outline-none w-full"
+                          className="bg-black border border-gray-700 rounded px-3 py-2 text-sm text-white focus:border-blue-500 outline-none w-full"
                         />
                         <textarea
                           value={articleForm.excerpt || ''}
                           onChange={e => setArticleForm({ ...articleForm, excerpt: e.target.value })}
                           placeholder="Excerpt"
                           rows={3}
-                          className="bg-black border border-gray-700 rounded px-3 py-2 text-sm text-white focus:border-green-500 outline-none resize-none w-full"
+                          className="bg-black border border-gray-700 rounded px-3 py-2 text-sm text-white focus:border-blue-500 outline-none resize-none w-full"
                         />
                         <div className="flex flex-wrap gap-3">
                           <div className="flex flex-col gap-1">
@@ -525,7 +525,7 @@ export default function AdminModal({ onClose }: AdminModalProps) {
                               value={articleForm.date || ''}
                               onChange={e => setArticleForm({ ...articleForm, date: e.target.value })}
                               placeholder="Mar 12, 2026"
-                              className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-green-500 outline-none w-36"
+                              className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-blue-500 outline-none w-36"
                             />
                           </div>
                           <div className="flex flex-col gap-1">
@@ -535,7 +535,7 @@ export default function AdminModal({ onClose }: AdminModalProps) {
                               value={articleForm.readTime || ''}
                               onChange={e => setArticleForm({ ...articleForm, readTime: e.target.value })}
                               placeholder="8 min read"
-                              className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-green-500 outline-none w-28"
+                              className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-blue-500 outline-none w-28"
                             />
                           </div>
                           <div className="flex flex-col gap-1">
@@ -543,7 +543,7 @@ export default function AdminModal({ onClose }: AdminModalProps) {
                             <select
                               value={articleForm.tag || 'Strategy'}
                               onChange={e => setArticleForm({ ...articleForm, tag: e.target.value })}
-                              className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-green-500 outline-none"
+                              className="bg-black border border-gray-700 rounded px-3 py-1.5 text-sm text-white focus:border-blue-500 outline-none"
                             >
                               {TAGS.map(t => <option key={t} value={t}>{t}</option>)}
                             </select>
@@ -554,7 +554,7 @@ export default function AdminModal({ onClose }: AdminModalProps) {
                                 type="checkbox"
                                 checked={articleForm.featured ?? false}
                                 onChange={e => setArticleForm({ ...articleForm, featured: e.target.checked })}
-                                className="accent-green-500 w-4 h-4"
+                                className="accent-blue-500 w-4 h-4"
                               />
                               <span className="text-sm text-gray-300">Featured</span>
                             </label>
@@ -569,7 +569,7 @@ export default function AdminModal({ onClose }: AdminModalProps) {
                           </button>
                           <button
                             onClick={saveArticleEdit}
-                            className="px-3 py-1.5 bg-green-500/20 text-green-400 rounded hover:bg-green-500/30 text-sm font-medium transition-colors"
+                            className="px-3 py-1.5 bg-blue-500/20 text-blue-400 rounded hover:bg-blue-500/30 text-sm font-medium transition-colors"
                           >
                             Done
                           </button>
@@ -580,7 +580,7 @@ export default function AdminModal({ onClose }: AdminModalProps) {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
                             {article.featured && (
-                              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded border text-green-400 bg-green-400/10 border-green-400/30">FEATURED</span>
+                              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded border text-blue-400 bg-blue-400/10 border-blue-400/30">FEATURED</span>
                             )}
                             <span className="text-[10px] font-mono px-1.5 py-0.5 rounded border text-gray-400 bg-gray-700/30 border-gray-600/30">{article.tag}</span>
                             <span className="text-[10px] text-gray-600 font-mono">{article.date} · {article.readTime}</span>

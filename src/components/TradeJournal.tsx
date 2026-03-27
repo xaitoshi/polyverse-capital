@@ -77,9 +77,9 @@ function LoginModal({ onSuccess, onClose }: { onSuccess: () => void; onClose: ()
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-      <div className="bg-[#0a0a0a] border border-green-500/30 rounded-lg p-6 w-full max-w-sm mx-4">
+      <div className="bg-[#0a0a0a] border border-blue-500/30 rounded-lg p-6 w-full max-w-sm mx-4">
         <div className="flex items-center justify-between mb-5">
-          <div className="flex items-center gap-2 text-green-400 font-bold font-mono text-sm"><Lock className="w-4 h-4" /> ADMIN ACCESS</div>
+          <div className="flex items-center gap-2 text-blue-400 font-bold font-mono text-sm"><Lock className="w-4 h-4" /> ADMIN ACCESS</div>
           <button onClick={onClose}><X className="w-4 h-4 text-gray-600 hover:text-gray-400" /></button>
         </div>
         <form onSubmit={submit}>
@@ -88,7 +88,7 @@ function LoginModal({ onSuccess, onClose }: { onSuccess: () => void; onClose: ()
             <input
               type={show ? 'text' : 'password'} value={pw}
               onChange={e => { setPw(e.target.value); setError(''); }} autoFocus
-              className="w-full bg-black/40 border border-green-500/20 rounded px-3 py-2.5 pr-10 text-sm text-gray-200 focus:outline-none focus:border-green-500/50 font-mono"
+              className="w-full bg-black/40 border border-blue-500/20 rounded px-3 py-2.5 pr-10 text-sm text-gray-200 focus:outline-none focus:border-blue-500/50 font-mono"
               placeholder="••••••••"
             />
             <button type="button" onClick={() => setShow(s => !s)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 hover:text-gray-400">
@@ -96,7 +96,7 @@ function LoginModal({ onSuccess, onClose }: { onSuccess: () => void; onClose: ()
             </button>
           </div>
           {error && <p className="text-red-400 text-xs font-mono mb-3">{error}</p>}
-          <button type="submit" className="w-full py-2.5 bg-green-500/10 border border-green-500/40 text-green-400 rounded text-sm hover:bg-green-500/20 transition-colors font-mono">Unlock</button>
+          <button type="submit" className="w-full py-2.5 bg-blue-500/10 border border-blue-500/40 text-blue-400 rounded text-sm hover:bg-blue-500/20 transition-colors font-mono">Unlock</button>
         </form>
       </div>
     </div>
@@ -110,7 +110,7 @@ function StrategyStats({ trades }: { trades: JournalTrade[] }) {
   if (!strategies.length) return null;
   return (
     <div className="mb-8">
-      <h3 className="text-green-400/70 text-xs font-mono tracking-widest mb-3">STRATEGY PERFORMANCE</h3>
+      <h3 className="text-blue-400/70 text-xs font-mono tracking-widest mb-3">STRATEGY PERFORMANCE</h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {strategies.map(strat => {
           const st = trades.filter(t => t.strategy === strat);
@@ -120,15 +120,15 @@ function StrategyStats({ trades }: { trades: JournalTrade[] }) {
           const tp = closed.reduce((s, t) => s + (pnl(t) ?? 0), 0);
           const open = st.filter(t => t.status === 'open').length;
           return (
-            <div key={strat} className="border border-green-500/20 rounded-lg p-4 bg-black/20">
+            <div key={strat} className="border border-blue-500/20 rounded-lg p-4 bg-black/20">
               <div className="text-sm font-bold text-gray-200 mb-3 truncate">{strat}</div>
               <div className="grid grid-cols-3 gap-2 text-center">
                 <div>
-                  <div className={`text-lg font-bold font-mono ${wr == null ? 'text-gray-600' : wr >= 60 ? 'text-green-400' : wr >= 40 ? 'text-yellow-400' : 'text-red-400'}`}>{wr != null ? `${wr}%` : '—'}</div>
+                  <div className={`text-lg font-bold font-mono ${wr == null ? 'text-gray-600' : wr >= 60 ? 'text-blue-400' : wr >= 40 ? 'text-yellow-400' : 'text-red-400'}`}>{wr != null ? `${wr}%` : '—'}</div>
                   <div className="text-[10px] text-gray-600">WIN RATE</div>
                 </div>
                 <div>
-                  <div className={`text-lg font-bold font-mono ${tp >= 0 ? 'text-green-400' : 'text-red-400'}`}>{tp >= 0 ? '+' : '-'}${fmt2(tp)}</div>
+                  <div className={`text-lg font-bold font-mono ${tp >= 0 ? 'text-blue-400' : 'text-red-400'}`}>{tp >= 0 ? '+' : '-'}${fmt2(tp)}</div>
                   <div className="text-[10px] text-gray-600">P&L</div>
                 </div>
                 <div>
@@ -138,7 +138,7 @@ function StrategyStats({ trades }: { trades: JournalTrade[] }) {
               </div>
               {closed.length > 0 && (
                 <div className="mt-3 h-1 rounded-full bg-red-500/30 overflow-hidden">
-                  <div className="h-full bg-green-500 rounded-full transition-all" style={{ width: `${(wins.length / closed.length) * 100}%` }} />
+                  <div className="h-full bg-blue-500 rounded-full transition-all" style={{ width: `${(wins.length / closed.length) * 100}%` }} />
                 </div>
               )}
             </div>
@@ -189,9 +189,9 @@ function AddTradeForm({ strategies, onAdd, onClose, prefill }: {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="border border-green-500/30 rounded-lg p-5 mb-6 bg-green-500/5">
+    <form onSubmit={handleSubmit} className="border border-blue-500/30 rounded-lg p-5 mb-6 bg-blue-500/5">
       <div className="flex items-center justify-between mb-4">
-        <span className="text-green-400 text-sm font-bold font-mono">New Trade</span>
+        <span className="text-blue-400 text-sm font-bold font-mono">New Trade</span>
         <button type="button" onClick={onClose} className="text-gray-600 hover:text-gray-400"><X className="w-4 h-4" /></button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
@@ -199,25 +199,25 @@ function AddTradeForm({ strategies, onAdd, onClose, prefill }: {
           <label className="text-[10px] text-gray-500 mb-1 block font-mono">MARKET</label>
           <input value={market} onChange={e => setMarket(e.target.value)} required
             placeholder="e.g. Fed to cut rates in May 2026?"
-            className="w-full bg-black/40 border border-green-500/20 rounded px-3 py-2 text-sm text-gray-200 placeholder:text-gray-700 focus:outline-none focus:border-green-500/50" />
+            className="w-full bg-black/40 border border-blue-500/20 rounded px-3 py-2 text-sm text-gray-200 placeholder:text-gray-700 focus:outline-none focus:border-blue-500/50" />
         </div>
         <div className="sm:col-span-2">
           <label className="text-[10px] text-gray-500 mb-1 block font-mono">CONDITION ID <span className="text-gray-600">(optional — enables auto-resolution sync)</span></label>
           <input value={conditionId} onChange={e => setConditionId(e.target.value)}
             placeholder="0x… from Polymarket"
-            className="w-full bg-black/40 border border-green-500/20 rounded px-3 py-2 text-sm text-gray-200 placeholder:text-gray-700 focus:outline-none focus:border-green-500/50 font-mono text-xs" />
+            className="w-full bg-black/40 border border-blue-500/20 rounded px-3 py-2 text-sm text-gray-200 placeholder:text-gray-700 focus:outline-none focus:border-blue-500/50 font-mono text-xs" />
         </div>
         <div>
           <label className="text-[10px] text-gray-500 mb-1 block font-mono">STRATEGY</label>
           {useCustom
             ? <input value={customStrategy} onChange={e => setCustomStrategy(e.target.value)} required placeholder="Strategy name"
-                className="w-full bg-black/40 border border-green-500/20 rounded px-3 py-2 text-sm text-gray-200 placeholder:text-gray-700 focus:outline-none focus:border-green-500/50" />
+                className="w-full bg-black/40 border border-blue-500/20 rounded px-3 py-2 text-sm text-gray-200 placeholder:text-gray-700 focus:outline-none focus:border-blue-500/50" />
             : <select value={strategy} onChange={e => setStrategy(e.target.value)}
-                className="w-full bg-black/40 border border-green-500/20 rounded px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-green-500/50">
+                className="w-full bg-black/40 border border-blue-500/20 rounded px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-blue-500/50">
                 {strategies.map(s => <option key={s} value={s}>{s}</option>)}
               </select>
           }
-          <button type="button" onClick={() => setUseCustom(u => !u)} className="text-[10px] text-green-500/50 hover:text-green-400 mt-1 transition-colors font-mono">
+          <button type="button" onClick={() => setUseCustom(u => !u)} className="text-[10px] text-blue-500/50 hover:text-blue-400 mt-1 transition-colors font-mono">
             {useCustom ? '← pick existing' : '+ new strategy'}
           </button>
         </div>
@@ -226,7 +226,7 @@ function AddTradeForm({ strategies, onAdd, onClose, prefill }: {
           <div className="flex gap-2">
             {(['YES', 'NO'] as const).map(s => (
               <button key={s} type="button" onClick={() => setSide(s)}
-                className={`flex-1 py-2 rounded text-sm font-bold border transition-colors ${side === s ? (s === 'YES' ? 'bg-green-500/20 border-green-500/60 text-green-400' : 'bg-red-500/20 border-red-500/60 text-red-400') : 'border-green-500/20 text-gray-600 hover:text-gray-400'}`}
+                className={`flex-1 py-2 rounded text-sm font-bold border transition-colors ${side === s ? (s === 'YES' ? 'bg-blue-500/20 border-blue-500/60 text-blue-400' : 'bg-red-500/20 border-red-500/60 text-red-400') : 'border-blue-500/20 text-gray-600 hover:text-gray-400'}`}
               >{s}</button>
             ))}
           </div>
@@ -234,20 +234,20 @@ function AddTradeForm({ strategies, onAdd, onClose, prefill }: {
         <div>
           <label className="text-[10px] text-gray-500 mb-1 block font-mono">ENTRY PRICE (0–1)</label>
           <input type="number" step="0.01" min="0.01" max="0.99" value={entry} onChange={e => setEntry(e.target.value)} required placeholder="0.45"
-            className="w-full bg-black/40 border border-green-500/20 rounded px-3 py-2 text-sm text-gray-200 placeholder:text-gray-700 focus:outline-none focus:border-green-500/50" />
+            className="w-full bg-black/40 border border-blue-500/20 rounded px-3 py-2 text-sm text-gray-200 placeholder:text-gray-700 focus:outline-none focus:border-blue-500/50" />
         </div>
         <div>
           <label className="text-[10px] text-gray-500 mb-1 block font-mono">SIZE (USDC)</label>
           <input type="number" step="1" min="1" value={size} onChange={e => setSize(e.target.value)} required placeholder="100"
-            className="w-full bg-black/40 border border-green-500/20 rounded px-3 py-2 text-sm text-gray-200 placeholder:text-gray-700 focus:outline-none focus:border-green-500/50" />
+            className="w-full bg-black/40 border border-blue-500/20 rounded px-3 py-2 text-sm text-gray-200 placeholder:text-gray-700 focus:outline-none focus:border-blue-500/50" />
         </div>
         <div className="sm:col-span-2">
           <label className="text-[10px] text-gray-500 mb-1 block font-mono">NOTES (optional)</label>
           <input value={notes} onChange={e => setNotes(e.target.value)} placeholder="Thesis, signals, context…"
-            className="w-full bg-black/40 border border-green-500/20 rounded px-3 py-2 text-sm text-gray-200 placeholder:text-gray-700 focus:outline-none focus:border-green-500/50" />
+            className="w-full bg-black/40 border border-blue-500/20 rounded px-3 py-2 text-sm text-gray-200 placeholder:text-gray-700 focus:outline-none focus:border-blue-500/50" />
         </div>
       </div>
-      <button type="submit" className="w-full py-2 bg-green-500/10 border border-green-500/40 text-green-400 rounded text-sm hover:bg-green-500/20 transition-colors font-mono">
+      <button type="submit" className="w-full py-2 bg-blue-500/10 border border-blue-500/40 text-blue-400 rounded text-sm hover:bg-blue-500/20 transition-colors font-mono">
         Log Trade
       </button>
     </form>
@@ -264,9 +264,9 @@ function CloseTradeModal({ trade, onClose, onSave }: { trade: JournalTrade; onCl
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
-      <div className="bg-[#0a0a0a] border border-green-500/30 rounded-lg p-6 w-full max-w-sm mx-4">
+      <div className="bg-[#0a0a0a] border border-blue-500/30 rounded-lg p-6 w-full max-w-sm mx-4">
         <div className="flex items-center justify-between mb-4">
-          <span className="text-green-400 font-bold text-sm font-mono">Close Trade</span>
+          <span className="text-blue-400 font-bold text-sm font-mono">Close Trade</span>
           <button onClick={onClose}><X className="w-4 h-4 text-gray-600" /></button>
         </div>
         <div className="text-xs text-gray-400 mb-4 leading-relaxed">{trade.market}</div>
@@ -276,14 +276,14 @@ function CloseTradeModal({ trade, onClose, onSave }: { trade: JournalTrade; onCl
         <label className="text-[10px] text-gray-500 mb-1 block font-mono">EXIT PRICE (0–1)</label>
         <input type="number" step="0.01" min="0" max="1" value={exit} onChange={e => setExit(e.target.value)}
           placeholder="0.00 = full loss · 1.00 = full win"
-          className="w-full bg-black/40 border border-green-500/20 rounded px-3 py-2 text-sm text-gray-200 placeholder:text-gray-700 focus:outline-none focus:border-green-500/50 mb-3" />
+          className="w-full bg-black/40 border border-blue-500/20 rounded px-3 py-2 text-sm text-gray-200 placeholder:text-gray-700 focus:outline-none focus:border-blue-500/50 mb-3" />
         {estPnl != null && (
-          <div className={`text-xs mb-4 font-mono ${estPnl >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+          <div className={`text-xs mb-4 font-mono ${estPnl >= 0 ? 'text-blue-400' : 'text-red-400'}`}>
             {estPnl >= 0 ? '+' : '-'}${fmt2(estPnl)} ({pnlPct({ ...trade, exit: exitNum })?.toFixed(1)}%) · {outcome === 'won' ? '✓ WIN' : '✗ LOSS'}
           </div>
         )}
         <button disabled={!outcome} onClick={() => outcome && onSave(exitNum, outcome)}
-          className="w-full py-2 bg-green-500/10 border border-green-500/40 text-green-400 rounded text-sm hover:bg-green-500/20 transition-colors disabled:opacity-30 font-mono">
+          className="w-full py-2 bg-blue-500/10 border border-blue-500/40 text-blue-400 rounded text-sm hover:bg-blue-500/20 transition-colors disabled:opacity-30 font-mono">
           Confirm Close
         </button>
       </div>
@@ -374,9 +374,9 @@ function WalletImporter({ strategies, onImport, onClose }: {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-      <div className="bg-[#0a0a0a] border border-green-500/30 rounded-lg w-full max-w-2xl max-h-[85vh] flex flex-col">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-green-500/20">
-          <div className="flex items-center gap-2 text-green-400 font-bold font-mono text-sm">
+      <div className="bg-[#0a0a0a] border border-blue-500/30 rounded-lg w-full max-w-2xl max-h-[85vh] flex flex-col">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-blue-500/20">
+          <div className="flex items-center gap-2 text-blue-400 font-bold font-mono text-sm">
             <Wallet className="w-4 h-4" /> IMPORT FROM WALLET
           </div>
           <button onClick={onClose}><X className="w-4 h-4 text-gray-600 hover:text-gray-400" /></button>
@@ -388,9 +388,9 @@ function WalletImporter({ strategies, onImport, onClose }: {
             <input value={address} onChange={e => setAddress(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && fetchPositions()}
               placeholder="0x… Polymarket wallet address"
-              className="flex-1 bg-black/40 border border-green-500/20 rounded px-3 py-2 text-sm text-gray-200 placeholder:text-gray-700 focus:outline-none focus:border-green-500/50 font-mono" />
+              className="flex-1 bg-black/40 border border-blue-500/20 rounded px-3 py-2 text-sm text-gray-200 placeholder:text-gray-700 focus:outline-none focus:border-blue-500/50 font-mono" />
             <button onClick={fetchPositions} disabled={loading || !address.trim()}
-              className="px-4 py-2 text-xs bg-green-500/10 border border-green-500/40 text-green-400 rounded hover:bg-green-500/20 disabled:opacity-40 font-mono flex items-center gap-2">
+              className="px-4 py-2 text-xs bg-blue-500/10 border border-blue-500/40 text-blue-400 rounded hover:bg-blue-500/20 disabled:opacity-40 font-mono flex items-center gap-2">
               {loading && <RefreshCw className="w-3.5 h-3.5 animate-spin" />}
               {loading ? 'Fetching…' : 'Fetch'}
             </button>
@@ -406,19 +406,19 @@ function WalletImporter({ strategies, onImport, onClose }: {
                   <div className="flex gap-2 items-center">
                     {useCustom
                       ? <input value={customStrategy} onChange={e => setCustomStrategy(e.target.value)} placeholder="Strategy name"
-                          className="flex-1 bg-black/40 border border-green-500/20 rounded px-3 py-2 text-sm text-gray-200 placeholder:text-gray-700 focus:outline-none focus:border-green-500/50" />
+                          className="flex-1 bg-black/40 border border-blue-500/20 rounded px-3 py-2 text-sm text-gray-200 placeholder:text-gray-700 focus:outline-none focus:border-blue-500/50" />
                       : <select value={strategy} onChange={e => setStrategy(e.target.value)}
-                          className="flex-1 bg-black/40 border border-green-500/20 rounded px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-green-500/50">
+                          className="flex-1 bg-black/40 border border-blue-500/20 rounded px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-blue-500/50">
                           {strategies.map(s => <option key={s} value={s}>{s}</option>)}
                         </select>
                     }
-                    <button type="button" onClick={() => setUseCustom(u => !u)} className="text-[10px] text-green-500/50 hover:text-green-400 whitespace-nowrap font-mono transition-colors">
+                    <button type="button" onClick={() => setUseCustom(u => !u)} className="text-[10px] text-blue-500/50 hover:text-blue-400 whitespace-nowrap font-mono transition-colors">
                       {useCustom ? '← existing' : '+ new'}
                     </button>
                   </div>
                 </div>
                 <label className="flex items-center gap-1.5 text-xs text-gray-500 font-mono cursor-pointer whitespace-nowrap pb-2">
-                  <input type="checkbox" checked={showClosed} onChange={e => setShowClosed(e.target.checked)} className="accent-green-400" />
+                  <input type="checkbox" checked={showClosed} onChange={e => setShowClosed(e.target.checked)} className="accent-blue-400" />
                   Show closed
                 </label>
               </div>
@@ -429,40 +429,40 @@ function WalletImporter({ strategies, onImport, onClose }: {
                   {visible.length} positions · {selected.size} selected
                   {' '}({positions.filter(p => !p.closed).length} open, {positions.filter(p => p.closed).length} closed)
                 </span>
-                <button onClick={toggleAll} className="text-xs text-green-500/60 hover:text-green-400 font-mono transition-colors">
+                <button onClick={toggleAll} className="text-xs text-blue-500/60 hover:text-blue-400 font-mono transition-colors">
                   {selected.size === visible.length ? 'Deselect all' : 'Select all'}
                 </button>
               </div>
 
               {/* Position list */}
-              <div className="border border-green-500/20 rounded-lg overflow-hidden mb-4">
+              <div className="border border-blue-500/20 rounded-lg overflow-hidden mb-4">
                 {visible.map((p, i) => {
                   const k = positionKey(p);
                   const pnlVal = p.cashPnl;
                   return (
-                    <label key={k} className={`flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-green-500/5 border-b border-green-500/10 last:border-0 ${i % 2 ? 'bg-white/[0.01]' : ''}`}>
-                      <input type="checkbox" checked={selected.has(k)} onChange={() => toggle(k)} className="accent-green-400 w-3.5 h-3.5 shrink-0" />
+                    <label key={k} className={`flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-blue-500/5 border-b border-blue-500/10 last:border-0 ${i % 2 ? 'bg-white/[0.01]' : ''}`}>
+                      <input type="checkbox" checked={selected.has(k)} onChange={() => toggle(k)} className="accent-blue-400 w-3.5 h-3.5 shrink-0" />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-0.5">
                           <span className="text-xs text-gray-200 truncate">{p.title}</span>
                           {p.closed
-                            ? <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded shrink-0 ${pnlVal >= 0 ? 'bg-green-500/10 text-green-400' : 'bg-red-500/10 text-red-400'}`}>
+                            ? <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded shrink-0 ${pnlVal >= 0 ? 'bg-blue-500/10 text-blue-400' : 'bg-red-500/10 text-red-400'}`}>
                                 {pnlVal >= 0 ? 'WON' : 'LOST'}
                               </span>
                             : <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-yellow-500/10 text-yellow-400 shrink-0">OPEN</span>
                           }
                         </div>
                         <div className="flex items-center gap-3 text-[10px] text-gray-500 font-mono flex-wrap">
-                          <span className={p.outcome.toLowerCase() === 'yes' ? 'text-green-400' : 'text-red-400'}>{p.outcome.toUpperCase()}</span>
+                          <span className={p.outcome.toLowerCase() === 'yes' ? 'text-blue-400' : 'text-red-400'}>{p.outcome.toUpperCase()}</span>
                           <span>entry {(p.avgPrice * 100).toFixed(1)}¢</span>
                           <span>${p.initialValue.toFixed(2)} in</span>
                           {p.closed && (
-                            <span className={pnlVal >= 0 ? 'text-green-400' : 'text-red-400'}>
+                            <span className={pnlVal >= 0 ? 'text-blue-400' : 'text-red-400'}>
                               {pnlVal >= 0 ? '+' : ''}${Math.abs(pnlVal).toFixed(2)} P&L ({p.percentPnl >= 0 ? '+' : ''}{p.percentPnl.toFixed(1)}%)
                             </span>
                           )}
                           {!p.closed && (
-                            <span className={p.cashPnl >= 0 ? 'text-green-400/70' : 'text-red-400/70'}>
+                            <span className={p.cashPnl >= 0 ? 'text-blue-400/70' : 'text-red-400/70'}>
                               unrealised {p.cashPnl >= 0 ? '+' : ''}${p.cashPnl.toFixed(2)}
                             </span>
                           )}
@@ -477,9 +477,9 @@ function WalletImporter({ strategies, onImport, onClose }: {
         </div>
 
         {positions.length > 0 && (
-          <div className="px-5 py-4 border-t border-green-500/20">
+          <div className="px-5 py-4 border-t border-blue-500/20">
             <button onClick={handleImport} disabled={!selected.size || (!strategy && !customStrategy)}
-              className="w-full py-2.5 bg-green-500/10 border border-green-500/40 text-green-400 rounded text-sm hover:bg-green-500/20 transition-colors disabled:opacity-30 font-mono flex items-center justify-center gap-2">
+              className="w-full py-2.5 bg-blue-500/10 border border-blue-500/40 text-blue-400 rounded text-sm hover:bg-blue-500/20 transition-colors disabled:opacity-30 font-mono flex items-center justify-center gap-2">
               <Download className="w-4 h-4" /> Import {selected.size} position{selected.size !== 1 ? 's' : ''}
             </button>
           </div>
@@ -498,7 +498,7 @@ function TradeRow({ trade, onClose, onDelete, isAdmin }: { trade: JournalTrade; 
 
   return (
     <>
-      <tr className="border-b border-green-500/10 hover:bg-white/[0.02] transition-colors">
+      <tr className="border-b border-blue-500/10 hover:bg-white/[0.02] transition-colors">
         <td className="px-4 py-3 text-gray-500 text-[11px] whitespace-nowrap font-mono">
           {new Date(trade.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' })}
         </td>
@@ -512,7 +512,7 @@ function TradeRow({ trade, onClose, onDelete, isAdmin }: { trade: JournalTrade; 
           )}
         </td>
         <td className="px-4 py-3 text-xs text-gray-400 font-mono">{trade.strategy}</td>
-        <td className={`px-4 py-3 text-xs font-bold font-mono ${trade.side === 'YES' ? 'text-green-400' : 'text-red-400'}`}>{trade.side}</td>
+        <td className={`px-4 py-3 text-xs font-bold font-mono ${trade.side === 'YES' ? 'text-blue-400' : 'text-red-400'}`}>{trade.side}</td>
         <td className="px-4 py-3 text-xs text-gray-300 font-mono">{(trade.entry * 100).toFixed(1)}¢</td>
         <td className="px-4 py-3 text-xs text-gray-300 font-mono">${trade.size}</td>
         <td className="px-4 py-3 text-xs font-mono">
@@ -521,7 +521,7 @@ function TradeRow({ trade, onClose, onDelete, isAdmin }: { trade: JournalTrade; 
               <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse inline-block" /> OPEN
             </span>
           ) : (
-            <span className={`flex items-center gap-1 ${trade.status === 'won' ? 'text-green-400' : 'text-red-400'}`}>
+            <span className={`flex items-center gap-1 ${trade.status === 'won' ? 'text-blue-400' : 'text-red-400'}`}>
               {trade.status === 'won' ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
               {p != null ? `${p >= 0 ? '+' : '-'}$${fmt2(p)}` : ''}
               {pp != null ? <span className="text-gray-500 text-[10px]"> ({pp >= 0 ? '+' : ''}{pp.toFixed(1)}%)</span> : null}
@@ -531,7 +531,7 @@ function TradeRow({ trade, onClose, onDelete, isAdmin }: { trade: JournalTrade; 
         <td className="px-4 py-3">
           <div className="flex items-center gap-2">
             {isAdmin && trade.status === 'open' && (
-              <button onClick={onClose} title="Close trade" className="text-gray-600 hover:text-green-400 transition-colors">
+              <button onClick={onClose} title="Close trade" className="text-gray-600 hover:text-blue-400 transition-colors">
                 <CheckCircle className="w-3.5 h-3.5" />
               </button>
             )}
@@ -544,7 +544,7 @@ function TradeRow({ trade, onClose, onDelete, isAdmin }: { trade: JournalTrade; 
         </td>
       </tr>
       {expanded && trade.notes && (
-        <tr className="border-b border-green-500/10 bg-black/20">
+        <tr className="border-b border-blue-500/10 bg-black/20">
           <td colSpan={8} className="px-4 py-2 text-[11px] text-gray-500 italic font-mono">{trade.notes}</td>
         </tr>
       )}
@@ -661,14 +661,14 @@ export default function TradeJournal() {
   const openWithConditionId = trades.filter(t => t.status === 'open').length;
 
   return (
-    <div className="border-t border-green-500/20">
+    <div className="border-t border-blue-500/20">
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Header */}
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <h2 className="text-green-400 font-bold tracking-wider text-lg font-mono">// OPEN TRADE JOURNAL</h2>
+            <h2 className="text-blue-400 font-bold tracking-wider text-lg font-mono">// OPEN TRADE JOURNAL</h2>
             {gistStatus === 'syncing' && <span className="text-[10px] font-mono text-yellow-400 animate-pulse">● syncing</span>}
-            {gistStatus === 'ok'      && <span className="text-[10px] font-mono text-green-500">● gist synced</span>}
+            {gistStatus === 'ok'      && <span className="text-[10px] font-mono text-blue-500">● gist synced</span>}
             {gistStatus === 'error'   && <span className="text-[10px] font-mono text-red-400" title="Check VITE_GIST_ID and VITE_GITHUB_TOKEN in Vercel env vars">● gist offline</span>}
           </div>
           <div className="flex items-center gap-2 flex-wrap justify-end">
@@ -681,20 +681,20 @@ export default function TradeJournal() {
             )}
             {isAdmin && (
               <button onClick={() => setShowImporter(true)}
-                className="flex items-center gap-1.5 px-3 py-2 text-xs border font-mono rounded transition-colors border-green-500/30 text-green-400 hover:bg-green-500/10">
+                className="flex items-center gap-1.5 px-3 py-2 text-xs border font-mono rounded transition-colors border-blue-500/30 text-blue-400 hover:bg-blue-500/10">
                 <Wallet className="w-3.5 h-3.5" /> Import Wallet
               </button>
             )}
             {isAdmin && (
               <button onClick={() => setShowForm(s => !s)}
-                className="flex items-center gap-2 px-4 py-2 text-xs bg-green-500/10 border border-green-500/40 text-green-400 rounded hover:bg-green-500/20 transition-colors font-mono">
+                className="flex items-center gap-2 px-4 py-2 text-xs bg-blue-500/10 border border-blue-500/40 text-blue-400 rounded hover:bg-blue-500/20 transition-colors font-mono">
                 <Plus className="w-3.5 h-3.5" /> Log Trade
               </button>
             )}
             <button
               onClick={() => { if (isAdmin) { sessionStorage.removeItem(SESSION_KEY); setIsAdmin(false); setShowForm(false); } else setShowLogin(true); }}
-              className="flex items-center gap-1.5 px-3 py-2 text-xs border font-mono rounded transition-colors border-green-500/20 text-gray-500 hover:text-green-400 hover:border-green-500/40">
-              {isAdmin ? <><Unlock className="w-3.5 h-3.5 text-green-400" /><span className="text-green-400">Admin</span></> : <><Lock className="w-3.5 h-3.5" /> Admin</>}
+              className="flex items-center gap-1.5 px-3 py-2 text-xs border font-mono rounded transition-colors border-blue-500/20 text-gray-500 hover:text-blue-400 hover:border-blue-500/40">
+              {isAdmin ? <><Unlock className="w-3.5 h-3.5 text-blue-400" /><span className="text-blue-400">Admin</span></> : <><Lock className="w-3.5 h-3.5" /> Admin</>}
             </button>
           </div>
         </div>
@@ -706,12 +706,12 @@ export default function TradeJournal() {
         {trades.length > 0 && (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
             {[
-              { label: 'OVERALL WIN RATE', value: overallWinRate != null ? `${overallWinRate}%` : '—', color: overallWinRate != null && overallWinRate >= 50 ? 'text-green-400' : 'text-yellow-400' },
-              { label: 'REALISED P&L', value: `${totalPnl >= 0 ? '+' : '-'}$${fmt2(totalPnl)}`, color: totalPnl >= 0 ? 'text-green-400' : 'text-red-400' },
+              { label: 'OVERALL WIN RATE', value: overallWinRate != null ? `${overallWinRate}%` : '—', color: overallWinRate != null && overallWinRate >= 50 ? 'text-blue-400' : 'text-yellow-400' },
+              { label: 'REALISED P&L', value: `${totalPnl >= 0 ? '+' : '-'}$${fmt2(totalPnl)}`, color: totalPnl >= 0 ? 'text-blue-400' : 'text-red-400' },
               { label: 'CLOSED TRADES', value: `${wins.length}W / ${closed.length - wins.length}L`, color: 'text-gray-300' },
               { label: 'OPEN POSITIONS', value: String(trades.filter(t => t.status === 'open').length), color: 'text-yellow-400' },
             ].map(s => (
-              <div key={s.label} className="border border-green-500/20 rounded-lg p-4 bg-black/20">
+              <div key={s.label} className="border border-blue-500/20 rounded-lg p-4 bg-black/20">
                 <div className="text-[10px] text-gray-600 font-mono mb-1">{s.label}</div>
                 <div className={`text-xl font-bold font-mono ${s.color}`}>{s.value}</div>
               </div>
@@ -727,14 +727,14 @@ export default function TradeJournal() {
         {trades.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-4">
             <select value={filterStrategy} onChange={e => setFilterStrategy(e.target.value)}
-              className="bg-black/40 border border-green-500/20 rounded px-3 py-1.5 text-xs text-gray-400 focus:outline-none focus:border-green-500/40 font-mono">
+              className="bg-black/40 border border-blue-500/20 rounded px-3 py-1.5 text-xs text-gray-400 focus:outline-none focus:border-blue-500/40 font-mono">
               <option value="all">All strategies</option>
               {allStrategies.map(s => <option key={s} value={s}>{s}</option>)}
             </select>
             <div className="flex gap-1">
               {(['all', 'open', 'closed'] as const).map(f => (
                 <button key={f} onClick={() => setFilterStatus(f)}
-                  className={`px-3 py-1.5 text-xs rounded border font-mono transition-colors ${filterStatus === f ? 'border-green-500/60 bg-green-500/10 text-green-400' : 'border-green-500/20 text-gray-500 hover:text-green-400'}`}>
+                  className={`px-3 py-1.5 text-xs rounded border font-mono transition-colors ${filterStatus === f ? 'border-blue-500/60 bg-blue-500/10 text-blue-400' : 'border-blue-500/20 text-gray-500 hover:text-blue-400'}`}>
                   {f.toUpperCase()}
                 </button>
               ))}
@@ -744,16 +744,16 @@ export default function TradeJournal() {
 
         {/* Table */}
         {trades.length === 0 ? (
-          <div className="border border-green-500/10 rounded-lg p-10 text-center text-gray-600 text-xs font-mono">
+          <div className="border border-blue-500/10 rounded-lg p-10 text-center text-gray-600 text-xs font-mono">
             No trades logged yet. Hit "Log Trade" or "Import Wallet" to get started.
           </div>
         ) : filtered.length === 0 ? (
-          <div className="border border-green-500/10 rounded-lg p-8 text-center text-gray-600 text-xs font-mono">No trades match the current filter.</div>
+          <div className="border border-blue-500/10 rounded-lg p-8 text-center text-gray-600 text-xs font-mono">No trades match the current filter.</div>
         ) : (
-          <div className="border border-green-500/20 rounded-lg overflow-hidden overflow-x-auto">
+          <div className="border border-blue-500/20 rounded-lg overflow-hidden overflow-x-auto">
             <table className="w-full text-xs font-mono">
               <thead>
-                <tr className="text-gray-600 border-b border-green-500/10 bg-green-500/5">
+                <tr className="text-gray-600 border-b border-blue-500/10 bg-blue-500/5">
                   <th className="text-left px-4 py-2 font-normal">DATE</th>
                   <th className="text-left px-4 py-2 font-normal">MARKET</th>
                   <th className="text-left px-4 py-2 font-normal">STRATEGY</th>

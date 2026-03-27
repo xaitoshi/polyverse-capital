@@ -45,7 +45,7 @@ export async function exportCardsAsImage(elements: HTMLElement[]) {
   ctx.fillRect(0, 0, totalW, totalH);
 
   // Header
-  ctx.fillStyle = '#4ade80';
+  ctx.fillStyle = '#60a5fa';
   ctx.font = 'bold 28px monospace';
   ctx.fillText('POLYEARN // EARNINGS OUTLOOK', OUTER_PAD, OUTER_PAD + 22);
   ctx.fillStyle = '#6b7280';

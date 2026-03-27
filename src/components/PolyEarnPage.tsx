@@ -93,7 +93,7 @@ function PredictionBadge({ prediction, confidence }: { prediction: 'BEAT' | 'MIS
   if (!prediction) return null;
 
   const colors = {
-    BEAT: 'bg-green-500/20 text-green-400 border-green-500/40',
+    BEAT: 'bg-blue-500/20 text-blue-400 border-blue-500/40',
     MISS: 'bg-red-500/20 text-red-400 border-red-500/40',
     MEET: 'bg-gray-500/20 text-gray-400 border-gray-500/40',
   };
@@ -136,7 +136,7 @@ function PolymarketBadge({ yesPct, volume, slug }: { yesPct: number; volume: num
       className="flex items-center gap-1.5 px-2 py-0.5 rounded border border-blue-500/40 bg-blue-500/10 hover:bg-blue-500/20 transition-colors"
     >
       <span className="text-[10px] font-mono text-blue-400/70 uppercase">Poly</span>
-      <span className={`text-xs font-mono font-bold ${yesPct >= 50 ? 'text-green-400' : 'text-red-400'}`}>
+      <span className={`text-xs font-mono font-bold ${yesPct >= 50 ? 'text-blue-400' : 'text-red-400'}`}>
         {yesPct.toFixed(0)}%
       </span>
       <span className="text-[10px] font-mono text-gray-600">{formatVol(volume)}</span>
@@ -154,7 +154,7 @@ function BeatRateBar({ beatRate, total }: { beatRate: number; total: number }) {
       <div className="flex-1 h-2 bg-gray-800 rounded-full overflow-hidden">
         <div
           className={`h-full rounded-full transition-all ${
-            beatRate >= 70 ? 'bg-green-500' : beatRate >= 50 ? 'bg-yellow-500' : 'bg-red-500'
+            beatRate >= 70 ? 'bg-blue-500' : beatRate >= 50 ? 'bg-yellow-500' : 'bg-red-500'
           }`}
           style={{ width: `${width}%` }}
         />
@@ -181,8 +181,8 @@ function EarningsCard({ analysis, onRemove, shareMode, selected, onToggleSelect,
         shareMode
           ? selected
             ? 'border-pink-500/60 ring-1 ring-pink-500/40'
-            : 'border-green-500/15 hover:border-pink-500/30'
-          : 'border-green-500/15 hover:border-green-500/40'
+            : 'border-blue-500/15 hover:border-pink-500/30'
+          : 'border-blue-500/15 hover:border-blue-500/40'
       }`}
       onClick={() => shareMode ? onToggleSelect?.() : setExpanded(!expanded)}
     >
@@ -209,7 +209,7 @@ function EarningsCard({ analysis, onRemove, shareMode, selected, onToggleSelect,
           )}
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-bold text-green-400 font-mono">{analysis.symbol}</span>
+              <span className="text-sm font-bold text-blue-400 font-mono">{analysis.symbol}</span>
               <span className="text-sm text-gray-300 truncate">{analysis.name !== analysis.symbol ? analysis.name : ''}</span>
               {onRemove && (
                 <button
@@ -264,7 +264,7 @@ function EarningsCard({ analysis, onRemove, shareMode, selected, onToggleSelect,
       {analysis.avgSurprisePct !== 0 && analysis.history.length > 0 && (
         <div className="mt-2 flex items-center gap-2">
           <span className="text-[10px] font-mono text-gray-600">Avg Surprise:</span>
-          <span className={`text-xs font-mono ${analysis.avgSurprisePct >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+          <span className={`text-xs font-mono ${analysis.avgSurprisePct >= 0 ? 'text-blue-400' : 'text-red-400'}`}>
             {analysis.avgSurprisePct >= 0 ? '+' : ''}{analysis.avgSurprisePct.toFixed(1)}%
           </span>
         </div>
@@ -274,7 +274,7 @@ function EarningsCard({ analysis, onRemove, shareMode, selected, onToggleSelect,
         <div className="mt-2 flex items-center gap-3 px-2 py-1.5 rounded bg-gray-900/50 border border-gray-800">
           <span className="text-[10px] font-mono text-gray-600 uppercase tracking-wider shrink-0">AI vs Market</span>
           <div className="flex items-center gap-2 flex-1">
-            <span className={`text-xs font-mono font-bold ${analysis.prediction === 'BEAT' ? 'text-green-400' : analysis.prediction === 'MISS' ? 'text-red-400' : 'text-gray-400'}`}>
+            <span className={`text-xs font-mono font-bold ${analysis.prediction === 'BEAT' ? 'text-blue-400' : analysis.prediction === 'MISS' ? 'text-red-400' : 'text-gray-400'}`}>
               {analysis.prediction === 'BEAT' ? 'BEAT' : analysis.prediction === 'MISS' ? 'MISS' : 'MEET'}
             </span>
             <span className="text-[10px] text-gray-600">vs</span>
@@ -286,7 +286,7 @@ function EarningsCard({ analysis, onRemove, shareMode, selected, onToggleSelect,
               const marketSaysBeat = analysis.polymarket.yesPct >= 50;
               const aligned = aiSaysBeat === marketSaysBeat;
               return (
-                <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${aligned ? 'text-green-400 bg-green-500/10' : 'text-orange-400 bg-orange-500/10'}`}>
+                <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${aligned ? 'text-blue-400 bg-blue-500/10' : 'text-orange-400 bg-orange-500/10'}`}>
                   {aligned ? 'ALIGNED' : 'DIVERGENT'}
                 </span>
               );
@@ -302,7 +302,7 @@ function EarningsCard({ analysis, onRemove, shareMode, selected, onToggleSelect,
       )}
 
       {expanded && analysis.history.length > 0 && (
-        <div className="mt-3 pt-3 border-t border-green-500/10">
+        <div className="mt-3 pt-3 border-t border-blue-500/10">
           <span className="text-[10px] font-mono text-gray-600 uppercase tracking-wider mb-2 block">
             Earnings History (Last {analysis.history.length} Quarters)
           </span>
@@ -312,7 +312,7 @@ function EarningsCard({ analysis, onRemove, shareMode, selected, onToggleSelect,
                 <span className="text-gray-600 w-24">{q.period}</span>
                 <span className="text-gray-400 w-16 text-right">A: {q.actual.toFixed(2)}</span>
                 <span className="text-gray-500 w-16 text-right">E: {q.estimate.toFixed(2)}</span>
-                <span className={`w-20 text-right ${q.surprise > 0.005 ? 'text-green-400' : q.surprise < -0.005 ? 'text-red-400' : 'text-gray-500'}`}>
+                <span className={`w-20 text-right ${q.surprise > 0.005 ? 'text-blue-400' : q.surprise < -0.005 ? 'text-red-400' : 'text-gray-500'}`}>
                   {q.surprise >= 0 ? '+' : ''}{q.surprise.toFixed(2)} ({q.surprisePct >= 0 ? '+' : ''}{q.surprisePct.toFixed(1)}%)
                 </span>
               </div>
@@ -329,7 +329,7 @@ function EarningsCard({ analysis, onRemove, shareMode, selected, onToggleSelect,
 function ScoreBar({ score }: { score: number }) {
   // score: -2 to +2
   const pct = ((score + 2) / 4) * 100;
-  const color = score >= 1 ? 'bg-green-500' : score <= -1 ? 'bg-red-500' : 'bg-yellow-500';
+  const color = score >= 1 ? 'bg-blue-500' : score <= -1 ? 'bg-red-500' : 'bg-yellow-500';
   return (
     <div className="flex-1 h-1.5 bg-gray-800 rounded-full overflow-hidden">
       <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
@@ -344,7 +344,7 @@ function TrendDots({ trend }: { trend: ('beat' | 'miss' | 'meet')[] }) {
         <span
           key={i}
           title={t}
-          className={`w-2.5 h-2.5 rounded-full ${t === 'beat' ? 'bg-green-400' : t === 'miss' ? 'bg-red-400' : 'bg-gray-600'}`}
+          className={`w-2.5 h-2.5 rounded-full ${t === 'beat' ? 'bg-blue-400' : t === 'miss' ? 'bg-red-400' : 'bg-gray-600'}`}
         />
       ))}
     </div>
@@ -361,7 +361,7 @@ function ProCard({ analysis, shareMode, selected, onToggleSelect, onRef }: {
   const [expanded, setExpanded] = useState(false);
 
   const signalColors = {
-    BULLISH: { bg: 'bg-green-500/15', border: 'border-green-500/40', text: 'text-green-400', badge: 'bg-green-500/20 border-green-500/40' },
+    BULLISH: { bg: 'bg-blue-500/15', border: 'border-blue-500/40', text: 'text-blue-400', badge: 'bg-blue-500/20 border-blue-500/40' },
     BEARISH: { bg: 'bg-red-500/15',   border: 'border-red-500/40',   text: 'text-red-400',   badge: 'bg-red-500/20 border-red-500/40' },
     NEUTRAL: { bg: 'bg-gray-500/10',  border: 'border-gray-600/40',  text: 'text-gray-400',  badge: 'bg-gray-700/40 border-gray-600/40' },
   }[analysis.signal];
@@ -433,7 +433,7 @@ function ProCard({ analysis, shareMode, selected, onToggleSelect, onRef }: {
             className="flex items-center gap-1.5 px-2 py-1 rounded border border-blue-500/40 bg-blue-500/10 hover:bg-blue-500/20 transition-colors"
           >
             <span className="text-[10px] font-mono text-blue-400/70 uppercase">Poly</span>
-            <span className={`text-sm font-black font-mono ${analysis.polymarket.yesPct >= 50 ? 'text-green-400' : 'text-red-400'}`}>
+            <span className={`text-sm font-black font-mono ${analysis.polymarket.yesPct >= 50 ? 'text-blue-400' : 'text-red-400'}`}>
               {analysis.polymarket.yesPct.toFixed(0)}%
             </span>
             <span className="text-[10px] font-mono text-gray-600">
@@ -451,7 +451,7 @@ function ProCard({ analysis, shareMode, selected, onToggleSelect, onRef }: {
           )}
         </div>
         {analysis.revenueGrowthTTM !== null && (
-          <span className={`text-[10px] font-mono ${analysis.revenueGrowthTTM >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+          <span className={`text-[10px] font-mono ${analysis.revenueGrowthTTM >= 0 ? 'text-blue-600' : 'text-red-600'}`}>
             Rev {analysis.revenueGrowthTTM >= 0 ? '+' : ''}{analysis.revenueGrowthTTM.toFixed(1)}% YoY
           </span>
         )}
@@ -462,7 +462,7 @@ function ProCard({ analysis, shareMode, selected, onToggleSelect, onRef }: {
         )}
         {analysis.optionsIV?.atmIV != null && (
           <span className={`text-[10px] font-mono ${
-            analysis.optionsIV.atmIV < 30 ? 'text-green-600'
+            analysis.optionsIV.atmIV < 30 ? 'text-blue-600'
             : analysis.optionsIV.atmIV < 50 ? 'text-yellow-600'
             : 'text-red-600'
           }`}>
@@ -475,7 +475,7 @@ function ProCard({ analysis, shareMode, selected, onToggleSelect, onRef }: {
           </span>
         )}
         {analysis.sectorReturns && (
-          <span className={`text-[10px] font-mono ${analysis.sectorReturns.d30 >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+          <span className={`text-[10px] font-mono ${analysis.sectorReturns.d30 >= 0 ? 'text-blue-600' : 'text-red-600'}`}>
             {analysis.sectorEtf} {analysis.sectorReturns.d30 >= 0 ? '+' : ''}{analysis.sectorReturns.d30.toFixed(1)}%
           </span>
         )}
@@ -492,10 +492,10 @@ function ProCard({ analysis, shareMode, selected, onToggleSelect, onRef }: {
             <div key={f.label} className="flex items-center gap-3">
               <span className="text-[11px] font-mono text-gray-500 w-28 flex-shrink-0">{f.label}</span>
               <ScoreBar score={f.score} />
-              <span className={`text-[11px] font-mono w-14 text-right flex-shrink-0 ${f.score > 0 ? 'text-green-400' : f.score < 0 ? 'text-red-400' : 'text-gray-500'}`}>
+              <span className={`text-[11px] font-mono w-14 text-right flex-shrink-0 ${f.score > 0 ? 'text-blue-400' : f.score < 0 ? 'text-red-400' : 'text-gray-500'}`}>
                 {f.value}
               </span>
-              <span className={`text-[11px] font-bold font-mono w-8 text-right flex-shrink-0 ${f.score > 0 ? 'text-green-400' : f.score < 0 ? 'text-red-400' : 'text-gray-600'}`}>
+              <span className={`text-[11px] font-bold font-mono w-8 text-right flex-shrink-0 ${f.score > 0 ? 'text-blue-400' : f.score < 0 ? 'text-red-400' : 'text-gray-600'}`}>
                 {f.score > 0 ? `+${f.score}` : f.score}
               </span>
             </div>
@@ -517,7 +517,7 @@ function ProCard({ analysis, shareMode, selected, onToggleSelect, onRef }: {
                 {analysis.estimateDispersionPct !== null && (
                   <div>
                     <p className="text-[9px] font-mono text-gray-600 uppercase tracking-wider">Analyst Spread</p>
-                    <p className={`text-[11px] font-mono ${analysis.estimateDispersionPct < 10 ? 'text-green-500' : analysis.estimateDispersionPct < 25 ? 'text-yellow-500' : 'text-red-500'}`}>
+                    <p className={`text-[11px] font-mono ${analysis.estimateDispersionPct < 10 ? 'text-blue-500' : analysis.estimateDispersionPct < 25 ? 'text-yellow-500' : 'text-red-500'}`}>
                       {analysis.estimateDispersionPct.toFixed(0)}% {analysis.estimateDispersionPct < 10 ? '· tight' : analysis.estimateDispersionPct < 25 ? '· moderate' : '· wide'}
                     </p>
                   </div>
@@ -529,7 +529,7 @@ function ProCard({ analysis, shareMode, selected, onToggleSelect, onRef }: {
                 <p className="text-[9px] font-mono text-gray-600 uppercase tracking-wider">Analyst Consensus</p>
                 <p className="text-[11px] font-mono text-gray-300">
                   {analysis.analystBuy}B / {analysis.analystHold}H / {analysis.analystSell}S
-                  <span className={`ml-1 ${analysis.analystBuyPct >= 60 ? 'text-green-400' : analysis.analystBuyPct < 40 ? 'text-red-400' : 'text-gray-500'}`}>
+                  <span className={`ml-1 ${analysis.analystBuyPct >= 60 ? 'text-blue-400' : analysis.analystBuyPct < 40 ? 'text-red-400' : 'text-gray-500'}`}>
                     ({analysis.analystBuyPct.toFixed(0)}% buy)
                   </span>
                 </p>
@@ -541,7 +541,7 @@ function ProCard({ analysis, shareMode, selected, onToggleSelect, onRef }: {
                 <p className="text-[11px] font-mono text-gray-300">
                   ${analysis.priceTargetMean.toFixed(2)} vs ${analysis.priceCurrent.toFixed(2)} now
                   {analysis.priceTargetUpside !== null && (
-                    <span className={`ml-1 ${analysis.priceTargetUpside >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                    <span className={`ml-1 ${analysis.priceTargetUpside >= 0 ? 'text-blue-400' : 'text-red-400'}`}>
                       ({analysis.priceTargetUpside >= 0 ? '+' : ''}{analysis.priceTargetUpside.toFixed(1)}%)
                     </span>
                   )}
@@ -551,7 +551,7 @@ function ProCard({ analysis, shareMode, selected, onToggleSelect, onRef }: {
             {analysis.insiderNetValue !== null && (
               <div>
                 <p className="text-[9px] font-mono text-gray-600 uppercase tracking-wider">Insider Activity (90d)</p>
-                <p className={`text-[11px] font-mono ${analysis.insiderNetValue >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                <p className={`text-[11px] font-mono ${analysis.insiderNetValue >= 0 ? 'text-blue-400' : 'text-red-400'}`}>
                   {analysis.insiderNetValue >= 0 ? '+' : ''}${(analysis.insiderNetValue / 1000).toFixed(0)}K net {analysis.insiderNetValue >= 0 ? 'buy' : 'sell'}
                   {analysis.insiderNetShares !== null && (
                     <span className="text-gray-600 ml-1">({analysis.insiderNetShares >= 0 ? '+' : ''}{analysis.insiderNetShares.toLocaleString()} shares)</span>
@@ -579,7 +579,7 @@ function ProCard({ analysis, shareMode, selected, onToggleSelect, onRef }: {
                   <div>
                     <p className="text-[9px] font-mono text-gray-600 uppercase tracking-wider">ATM Implied Volatility</p>
                     <p className={`text-[11px] font-mono font-bold ${
-                      analysis.optionsIV.atmIV < 30 ? 'text-green-400'
+                      analysis.optionsIV.atmIV < 30 ? 'text-blue-400'
                       : analysis.optionsIV.atmIV < 50 ? 'text-yellow-400'
                       : analysis.optionsIV.atmIV < 70 ? 'text-orange-400'
                       : 'text-red-400'
@@ -604,7 +604,7 @@ function ProCard({ analysis, shareMode, selected, onToggleSelect, onRef }: {
                   <div>
                     <p className="text-[9px] font-mono text-gray-600 uppercase tracking-wider">Put Skew (OTM put − ATM call)</p>
                     <p className={`text-[11px] font-mono font-bold ${
-                      analysis.optionsIV.putSkew < -1 ? 'text-green-400'
+                      analysis.optionsIV.putSkew < -1 ? 'text-blue-400'
                       : analysis.optionsIV.putSkew < 2 ? 'text-gray-300'
                       : analysis.optionsIV.putSkew < 6 ? 'text-yellow-400'
                       : analysis.optionsIV.putSkew < 12 ? 'text-orange-400'
@@ -636,7 +636,7 @@ function ProCard({ analysis, shareMode, selected, onToggleSelect, onRef }: {
             {analysis.revenueGrowthTTM !== null && (
               <div>
                 <p className="text-[9px] font-mono text-gray-600 uppercase tracking-wider">Revenue Growth</p>
-                <p className={`text-[11px] font-mono ${analysis.revenueGrowthTTM >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                <p className={`text-[11px] font-mono ${analysis.revenueGrowthTTM >= 0 ? 'text-blue-400' : 'text-red-400'}`}>
                   {analysis.revenueGrowthTTM >= 0 ? '+' : ''}{analysis.revenueGrowthTTM.toFixed(1)}% TTM YoY
                 </p>
               </div>
@@ -645,10 +645,10 @@ function ProCard({ analysis, shareMode, selected, onToggleSelect, onRef }: {
               <p className="text-[9px] font-mono text-gray-600 uppercase tracking-wider">Sector ETF ({analysis.sectorEtf})</p>
               {analysis.sectorReturns ? (
                 <div className="flex gap-3 mt-0.5">
-                  <span className={`text-[11px] font-mono ${analysis.sectorReturns.d30 >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                  <span className={`text-[11px] font-mono ${analysis.sectorReturns.d30 >= 0 ? 'text-blue-400' : 'text-red-400'}`}>
                     30d: {analysis.sectorReturns.d30 >= 0 ? '+' : ''}{analysis.sectorReturns.d30.toFixed(2)}%
                   </span>
-                  <span className={`text-[11px] font-mono ${analysis.sectorReturns.d60 >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                  <span className={`text-[11px] font-mono ${analysis.sectorReturns.d60 >= 0 ? 'text-blue-400' : 'text-red-400'}`}>
                     60d: {analysis.sectorReturns.d60 >= 0 ? '+' : ''}{analysis.sectorReturns.d60.toFixed(2)}%
                   </span>
                 </div>
@@ -668,7 +668,7 @@ function ProCard({ analysis, shareMode, selected, onToggleSelect, onRef }: {
                     <span className="text-gray-600 w-24">{q.period}</span>
                     <span className="text-gray-400 w-16 text-right">A: {q.actual.toFixed(2)}</span>
                     <span className="text-gray-500 w-16 text-right">E: {q.estimate.toFixed(2)}</span>
-                    <span className={`w-20 text-right ${q.surprise > 0.005 ? 'text-green-400' : q.surprise < -0.005 ? 'text-red-400' : 'text-gray-500'}`}>
+                    <span className={`w-20 text-right ${q.surprise > 0.005 ? 'text-blue-400' : q.surprise < -0.005 ? 'text-red-400' : 'text-gray-500'}`}>
                       {q.surprise >= 0 ? '+' : ''}{q.surprisePct.toFixed(1)}%
                     </span>
                   </div>
@@ -686,7 +686,7 @@ function LoadingSkeleton() {
   return (
     <div className="space-y-3">
       {[...Array(3)].map((_, i) => (
-        <div key={i} className="bg-black/40 border border-green-500/10 rounded-lg p-4 animate-pulse">
+        <div key={i} className="bg-black/40 border border-blue-500/10 rounded-lg p-4 animate-pulse">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-gray-800" />
             <div className="flex-1">
@@ -913,12 +913,12 @@ export default function PolyEarnPage({ onClose }: PolyEarnPageProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/80 backdrop-blur-sm sm:p-4">
-      <div className="w-full sm:max-w-5xl bg-[#0a0a0a] border border-green-500/30 sm:rounded-xl shadow-[0_0_40px_rgba(0,255,0,0.1)] flex flex-col h-[95dvh] sm:max-h-[90vh] rounded-t-2xl">
+      <div className="w-full sm:max-w-5xl bg-[#0a0a0a] border border-blue-500/30 sm:rounded-xl shadow-[0_0_40px_rgba(0,255,0,0.1)] flex flex-col h-[95dvh] sm:max-h-[90vh] rounded-t-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 sm:p-6 border-b border-green-500/20">
+        <div className="flex items-center justify-between px-4 py-3 sm:p-6 border-b border-blue-500/20">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <BarChart3 className="w-5 h-5 text-green-400" />
+              <BarChart3 className="w-5 h-5 text-blue-400" />
               <h2 className="text-2xl font-bold text-white tracking-tight">PolyEarn</h2>
             </div>
             <p className="text-gray-500 text-sm font-mono">AI predictions + Polymarket odds</p>
@@ -937,7 +937,7 @@ export default function PolyEarnPage({ onClose }: PolyEarnPageProps) {
               <Camera className="w-3.5 h-3.5" />
               {shareMode ? 'Selecting…' : 'Share'}
             </button>
-            <button onClick={onClose} className="text-gray-400 hover:text-green-400 transition-colors">
+            <button onClick={onClose} className="text-gray-400 hover:text-blue-400 transition-colors">
               <X className="w-6 h-6" />
             </button>
           </div>
@@ -965,8 +965,8 @@ export default function PolyEarnPage({ onClose }: PolyEarnPageProps) {
                 onClick={() => setViewMode('calendar')}
                 className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors border ${
                   viewMode === 'calendar'
-                    ? 'bg-green-500/20 text-green-400 border-green-500/50'
-                    : 'bg-transparent text-gray-400 border-gray-700 hover:border-green-500/30 hover:text-gray-200'
+                    ? 'bg-blue-500/20 text-blue-400 border-blue-500/50'
+                    : 'bg-transparent text-gray-400 border-gray-700 hover:border-blue-500/30 hover:text-gray-200'
                 }`}
               >
                 <span className="flex items-center gap-1.5">
@@ -992,7 +992,7 @@ export default function PolyEarnPage({ onClose }: PolyEarnPageProps) {
             {!loading && displayed.length > 0 && (
               <div className="flex items-center gap-4 text-xs font-mono">
                 <span className="text-gray-500">{displayed.length} companies</span>
-                {beatCount > 0 && <span className="text-green-400">{beatCount} beats</span>}
+                {beatCount > 0 && <span className="text-blue-400">{beatCount} beats</span>}
                 {missCount > 0 && <span className="text-red-400">{missCount} misses</span>}
                 {polyCount > 0 && <span className="text-blue-400">{polyCount} on Poly</span>}
               </div>
@@ -1011,12 +1011,12 @@ export default function PolyEarnPage({ onClose }: PolyEarnPageProps) {
                     onChange={(e) => setInputValue(e.target.value.toUpperCase())}
                     onKeyDown={handleKeyDown}
                     placeholder="Enter tickers (e.g. COST, AVGO, BBWI)"
-                    className="w-full px-4 py-2 bg-black/60 border border-green-500/20 rounded-lg text-sm font-mono text-white placeholder-gray-600 focus:outline-none focus:border-green-500/50"
+                    className="w-full px-4 py-2 bg-black/60 border border-blue-500/20 rounded-lg text-sm font-mono text-white placeholder-gray-600 focus:outline-none focus:border-blue-500/50"
                   />
                 </div>
                 <button
                   onClick={() => inputValue.trim() && addTicker(inputValue.trim())}
-                  className="px-4 py-2 bg-green-500/20 border border-green-500/40 rounded-lg text-green-400 text-sm font-mono hover:bg-green-500/30 transition-colors flex items-center gap-1.5"
+                  className="px-4 py-2 bg-blue-500/20 border border-blue-500/40 rounded-lg text-blue-400 text-sm font-mono hover:bg-blue-500/30 transition-colors flex items-center gap-1.5"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   Add
@@ -1043,12 +1043,12 @@ export default function PolyEarnPage({ onClose }: PolyEarnPageProps) {
                   {watchlist.map(ticker => (
                     <span
                       key={ticker}
-                      className="inline-flex items-center gap-1 px-2 py-0.5 bg-green-500/10 border border-green-500/30 rounded text-xs font-mono text-green-400"
+                      className="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-500/10 border border-blue-500/30 rounded text-xs font-mono text-blue-400"
                     >
                       {ticker}
                       <button
                         onClick={() => removeTicker(ticker)}
-                        className="text-green-500/50 hover:text-red-400 transition-colors"
+                        className="text-blue-500/50 hover:text-red-400 transition-colors"
                       >
                         <X className="w-3 h-3" />
                       </button>
@@ -1143,8 +1143,8 @@ export default function PolyEarnPage({ onClose }: PolyEarnPageProps) {
                   onClick={() => setFilter(tab.key)}
                   className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors border ${
                     filter === tab.key
-                      ? 'bg-green-500/20 text-green-400 border-green-500/50'
-                      : 'bg-transparent text-gray-400 border-gray-700 hover:border-green-500/30 hover:text-gray-200'
+                      ? 'bg-blue-500/20 text-blue-400 border-blue-500/50'
+                      : 'bg-transparent text-gray-400 border-gray-700 hover:border-blue-500/30 hover:text-gray-200'
                   }`}
                 >
                   {tab.label}
@@ -1231,7 +1231,7 @@ export default function PolyEarnPage({ onClose }: PolyEarnPageProps) {
             })()
           ) : loading ? (
             <div className="flex flex-col items-center gap-4">
-              <div className="flex items-center gap-2 text-green-400/70 font-mono text-sm">
+              <div className="flex items-center gap-2 text-blue-400/70 font-mono text-sm">
                 <Loader2 className="w-4 h-4 animate-spin" />
                 {viewMode === 'custom' ? 'Analyzing tickers...' : 'Loading earnings data...'}
               </div>
@@ -1287,7 +1287,7 @@ export default function PolyEarnPage({ onClose }: PolyEarnPageProps) {
                 return (
                   <div key={date}>
                     <div className="flex items-center gap-2 mb-3">
-                      <Calendar className="w-4 h-4 text-green-500/60" />
+                      <Calendar className="w-4 h-4 text-blue-500/60" />
                       <h3 className="text-sm font-bold text-white font-mono">
                         {date !== 'unknown' ? formatDate(date) : 'Date TBD'}
                       </h3>

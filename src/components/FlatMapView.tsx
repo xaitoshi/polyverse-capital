@@ -32,7 +32,7 @@ export default function FlatMapView({ data: _data, onMarkerClick: _onMarkerClick
 
       {/* Dither-style headline */}
       <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none select-none">
-        <p className="text-green-400 font-mono font-bold tracking-wider text-center px-8"
+        <p className="text-blue-400 font-mono font-bold tracking-wider text-center px-8"
           style={{ fontSize: 'clamp(2rem, 8vw, 9rem)', lineHeight: 1.1 }}>
           Home of Prediction Markets Research
         </p>
@@ -49,12 +49,12 @@ export default function FlatMapView({ data: _data, onMarkerClick: _onMarkerClick
           {/* ASCII dot-matrix fill pattern */}
           <pattern id="ascii-dots" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
             <rect width="6" height="6" fill="transparent" />
-            <circle cx="1" cy="1" r="0.8" fill="#00ff0022" />
+            <circle cx="1" cy="1" r="0.8" fill="#0066ff22" />
           </pattern>
           {/* Slightly brighter fill for hover */}
           <pattern id="ascii-dots-hover" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
             <rect width="6" height="6" fill="transparent" />
-            <circle cx="1" cy="1" r="0.8" fill="#00ff0044" />
+            <circle cx="1" cy="1" r="0.8" fill="#0066ff44" />
           </pattern>
         </defs>
 
@@ -65,11 +65,11 @@ export default function FlatMapView({ data: _data, onMarkerClick: _onMarkerClick
                 key={geo.rsmKey}
                 geography={geo}
                 fill="url(#ascii-dots)"
-                stroke="#00ff0066"
+                stroke="#0066ff66"
                 strokeWidth={0.6}
                 style={{
                   default: { outline: 'none' },
-                  hover: { fill: 'url(#ascii-dots-hover)', stroke: '#00ff00aa', outline: 'none' },
+                  hover: { fill: 'url(#ascii-dots-hover)', stroke: '#0066ffaa', outline: 'none' },
                   pressed: { outline: 'none' },
                 }}
               />

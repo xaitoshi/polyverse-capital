@@ -20,13 +20,13 @@ interface OsintPanelProps {
 }
 
 const directionConfig = {
-  BUY_YES: { label: 'BUY YES', icon: TrendingUp, color: 'text-green-400', bg: 'bg-green-500/20', border: 'border-green-500/30' },
+  BUY_YES: { label: 'BUY YES', icon: TrendingUp, color: 'text-blue-400', bg: 'bg-blue-500/20', border: 'border-blue-500/30' },
   BUY_NO: { label: 'BUY NO', icon: TrendingDown, color: 'text-red-400', bg: 'bg-red-500/20', border: 'border-red-500/30' },
   HOLD: { label: 'HOLD', icon: Minus, color: 'text-gray-400', bg: 'bg-gray-500/20', border: 'border-gray-500/30' },
 };
 
 const confidenceConfig = {
-  HIGH: { label: 'HIGH', icon: Shield, color: 'text-green-400' },
+  HIGH: { label: 'HIGH', icon: Shield, color: 'text-blue-400' },
   MEDIUM: { label: 'MED', icon: AlertTriangle, color: 'text-yellow-400' },
   LOW: { label: 'LOW', icon: Info, color: 'text-gray-400' },
 };
@@ -41,7 +41,7 @@ function SignalCard({ signal }: { signal: TradingSignal }) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       onClick={() => { if (signal.polymarketUrl) window.open(signal.polymarketUrl, '_blank', 'noopener,noreferrer'); }}
-      className={`bg-black/40 border ${dir.border} rounded-lg p-4 ${signal.polymarketUrl ? 'cursor-pointer hover:border-green-500/50' : ''} transition-colors group`}
+      className={`bg-black/40 border ${dir.border} rounded-lg p-4 ${signal.polymarketUrl ? 'cursor-pointer hover:border-blue-500/50' : ''} transition-colors group`}
     >
       <div className="flex items-center justify-between gap-2 mb-2">
         <div className={`flex items-center gap-1.5 px-2 py-0.5 rounded ${dir.bg} ${dir.color} text-xs font-mono font-bold`}>
@@ -50,16 +50,16 @@ function SignalCard({ signal }: { signal: TradingSignal }) {
         </div>
         <div className="flex items-center gap-2">
           <span className={`text-[10px] font-mono ${conf.color}`}>{conf.label}</span>
-          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-green-500/10 text-green-400/70 border border-green-500/20">
+          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-400/70 border border-blue-500/20">
             {signal.region}
           </span>
           {signal.polymarketUrl && (
-            <ExternalLink className="w-3 h-3 text-gray-600 group-hover:text-green-400" />
+            <ExternalLink className="w-3 h-3 text-gray-600 group-hover:text-blue-400" />
           )}
         </div>
       </div>
 
-      <h4 className="text-gray-200 text-sm font-medium leading-snug mb-2 group-hover:text-green-400 transition-colors">{signal.market}</h4>
+      <h4 className="text-gray-200 text-sm font-medium leading-snug mb-2 group-hover:text-blue-400 transition-colors">{signal.market}</h4>
       <p className="text-gray-400 text-xs leading-relaxed mb-2">{signal.reasoning}</p>
 
       <div className="flex items-start gap-1.5 text-[10px] text-gray-500 font-mono">
@@ -143,10 +143,10 @@ export default function OsintPanel({ marketData, onClose, onAlerts, onRefreshMar
     : '';
 
   return (
-    <div className="absolute right-6 top-24 bottom-24 w-96 bg-black/80 border border-green-500/30 backdrop-blur-xl rounded-xl p-6 flex flex-col z-20 pointer-events-auto overflow-hidden shadow-[0_0_30px_rgba(0,255,0,0.1)]">
+    <div className="absolute right-6 top-24 bottom-24 w-96 bg-black/80 border border-blue-500/30 backdrop-blur-xl rounded-xl p-6 flex flex-col z-20 pointer-events-auto overflow-hidden shadow-[0_0_30px_rgba(0,255,0,0.1)]">
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 text-gray-400 hover:text-green-400 transition-colors"
+        className="absolute top-4 right-4 text-gray-400 hover:text-blue-400 transition-colors"
       >
         <X className="w-5 h-5" />
       </button>
@@ -155,7 +155,7 @@ export default function OsintPanel({ marketData, onClose, onAlerts, onRefreshMar
         {/* Header */}
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-2">
-            <span className="px-2 py-0.5 bg-green-500/20 text-green-400 text-xs font-mono rounded border border-green-500/30 flex items-center gap-1.5">
+            <span className="px-2 py-0.5 bg-blue-500/20 text-blue-400 text-xs font-mono rounded border border-blue-500/30 flex items-center gap-1.5">
               <Activity className="w-3 h-3" />
               KalshiClaw
             </span>
@@ -177,10 +177,10 @@ export default function OsintPanel({ marketData, onClose, onAlerts, onRefreshMar
         {loading && (
           <div className="flex flex-col items-center justify-center py-12 gap-4">
             <div className="relative">
-              <div className="w-12 h-12 border-2 border-green-500/30 rounded-full" />
-              <div className="absolute inset-0 w-12 h-12 border-2 border-green-400 border-t-transparent rounded-full animate-spin" />
+              <div className="w-12 h-12 border-2 border-blue-500/30 rounded-full" />
+              <div className="absolute inset-0 w-12 h-12 border-2 border-blue-400 border-t-transparent rounded-full animate-spin" />
             </div>
-            <div className="text-green-400 font-mono text-sm animate-pulse">
+            <div className="text-blue-400 font-mono text-sm animate-pulse">
               Analyzing markets...
             </div>
             <div className="text-gray-600 font-mono text-[10px] text-center">
@@ -200,8 +200,8 @@ export default function OsintPanel({ marketData, onClose, onAlerts, onRefreshMar
         {result && !loading && (
           <>
             {/* Summary */}
-            <div className="bg-green-500/5 border border-green-500/20 rounded-lg p-4 mb-4">
-              <h3 className="text-green-400 font-mono text-xs uppercase tracking-wider mb-2">
+            <div className="bg-blue-500/5 border border-blue-500/20 rounded-lg p-4 mb-4">
+              <h3 className="text-blue-400 font-mono text-xs uppercase tracking-wider mb-2">
                 Market Intelligence
               </h3>
               <p className="text-gray-300 text-sm leading-relaxed">{result.summary}</p>
@@ -210,7 +210,7 @@ export default function OsintPanel({ marketData, onClose, onAlerts, onRefreshMar
             {/* Signals */}
             {result.signals.length > 0 ? (
               <div className="space-y-3">
-                <h3 className="text-green-400 font-mono text-sm uppercase tracking-wider border-b border-green-500/20 pb-2">
+                <h3 className="text-blue-400 font-mono text-sm uppercase tracking-wider border-b border-blue-500/20 pb-2">
                   Trading Signals ({result.signals.length})
                 </h3>
                 <AnimatePresence>
@@ -230,10 +230,10 @@ export default function OsintPanel({ marketData, onClose, onAlerts, onRefreshMar
 
         {/* Chat section */}
         {result && !loading && (
-          <div className="mt-6 pt-4 border-t border-green-500/20">
+          <div className="mt-6 pt-4 border-t border-blue-500/20">
             <div className="flex items-center gap-2 mb-3">
-              <MessageSquare className="w-3.5 h-3.5 text-green-400" />
-              <h3 className="text-green-400 font-mono text-sm uppercase tracking-wider">Ask KalshiClaw</h3>
+              <MessageSquare className="w-3.5 h-3.5 text-blue-400" />
+              <h3 className="text-blue-400 font-mono text-sm uppercase tracking-wider">Ask KalshiClaw</h3>
             </div>
 
             {chatMessages.length === 0 && !chatLoading && (
@@ -252,11 +252,11 @@ export default function OsintPanel({ marketData, onClose, onAlerts, onRefreshMar
                   >
                     <div className={`max-w-[85%] rounded-lg px-3 py-2 text-xs leading-relaxed ${
                       msg.role === 'user'
-                        ? 'bg-green-500/15 border border-green-500/30 text-green-300'
+                        ? 'bg-blue-500/15 border border-blue-500/30 text-blue-300'
                         : 'bg-black/60 border border-gray-700/50 text-gray-300'
                     }`}>
                       <div className="whitespace-pre-wrap">{msg.content}</div>
-                      <div className={`text-[9px] mt-1 ${msg.role === 'user' ? 'text-green-500/50' : 'text-gray-600'}`}>
+                      <div className={`text-[9px] mt-1 ${msg.role === 'user' ? 'text-blue-500/50' : 'text-gray-600'}`}>
                         {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </div>
                     </div>
@@ -266,9 +266,9 @@ export default function OsintPanel({ marketData, onClose, onAlerts, onRefreshMar
                 {chatLoading && (
                   <div className="bg-black/60 border border-gray-700/50 rounded-lg px-3 py-2 max-w-[85%]">
                     <div className="flex items-center gap-1.5">
-                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
-                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse [animation-delay:0.2s]" />
-                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse [animation-delay:0.4s]" />
+                      <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" />
+                      <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse [animation-delay:0.2s]" />
+                      <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse [animation-delay:0.4s]" />
                     </div>
                   </div>
                 )}
@@ -281,7 +281,7 @@ export default function OsintPanel({ marketData, onClose, onAlerts, onRefreshMar
       </div>
 
       {/* Chat input + Refresh */}
-      <div className="pt-4 mt-4 border-t border-green-500/20 space-y-2">
+      <div className="pt-4 mt-4 border-t border-blue-500/20 space-y-2">
         {result && !loading && (
           <div className="flex gap-2">
             <input
@@ -291,12 +291,12 @@ export default function OsintPanel({ marketData, onClose, onAlerts, onRefreshMar
               onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); } }}
               placeholder="Ask about a market..."
               disabled={chatLoading}
-              className="flex-1 bg-black/60 border border-green-500/30 rounded-lg px-3 py-2 text-sm text-gray-200 font-mono placeholder:text-gray-600 focus:outline-none focus:border-green-500/60 disabled:opacity-50"
+              className="flex-1 bg-black/60 border border-blue-500/30 rounded-lg px-3 py-2 text-sm text-gray-200 font-mono placeholder:text-gray-600 focus:outline-none focus:border-blue-500/60 disabled:opacity-50"
             />
             <button
               onClick={sendChat}
               disabled={chatLoading || !chatInput.trim()}
-              className="px-3 py-2 bg-green-500/20 hover:bg-green-500/30 border border-green-500/50 text-green-400 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-3 py-2 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/50 text-blue-400 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Send className="w-4 h-4" />
             </button>
@@ -305,7 +305,7 @@ export default function OsintPanel({ marketData, onClose, onAlerts, onRefreshMar
         <button
           onClick={() => runAnalysis(true)}
           disabled={loading}
-          className="w-full py-3 bg-green-500/20 hover:bg-green-500/30 border border-green-500/50 text-green-400 rounded-lg font-mono text-sm transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full py-3 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/50 text-blue-400 rounded-lg font-mono text-sm transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           {loading ? 'Analyzing...' : 'Refresh Analysis'}

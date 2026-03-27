@@ -135,9 +135,9 @@ export default function App() {
 
             {/* Scroll hint */}
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 pointer-events-none animate-bounce">
-              <span className="text-[10px] font-mono text-green-500/40 tracking-widest">SCROLL</span>
+              <span className="text-[10px] font-mono text-blue-500/40 tracking-widest">SCROLL</span>
               <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-                <path d="M1 1L6 6L11 1" stroke="#00ff0055" strokeWidth="1.5" strokeLinecap="round"/>
+                <path d="M1 1L6 6L11 1" stroke="#0066ff55" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
             </div>
           </div>

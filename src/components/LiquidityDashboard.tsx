@@ -272,7 +272,7 @@ function HBarChart({ cats, selected, onSelect }: { cats: CatData[]; selected: st
             <div className={`w-28 text-right text-[10px] font-mono truncate transition-colors ${active ? 'text-white' : 'text-gray-500 group-hover:text-gray-300'}`}>
               {c.label}
             </div>
-            <div className="flex-1 h-7 bg-black/40 rounded-sm relative overflow-hidden border border-green-500/10">
+            <div className="flex-1 h-7 bg-black/40 rounded-sm relative overflow-hidden border border-blue-500/10">
               <div
                 className="h-full rounded-sm transition-all duration-700"
                 style={{ width: `${pct}%`, backgroundColor: c.color + (active ? 'ff' : '80') }}
@@ -311,7 +311,7 @@ function SubBarChart({ subs, color, selected, onSelect }: {
             <div className={`w-32 text-right text-[10px] font-mono truncate transition-colors ${active ? 'text-white' : 'text-gray-500 group-hover:text-gray-300'}`}>
               {s.label}
             </div>
-            <div className={`flex-1 h-6 bg-black/40 rounded-sm relative overflow-hidden border transition-colors ${active ? 'border-white/30' : 'border-green-500/10 group-hover:border-green-500/25'}`}>
+            <div className={`flex-1 h-6 bg-black/40 rounded-sm relative overflow-hidden border transition-colors ${active ? 'border-white/30' : 'border-blue-500/10 group-hover:border-blue-500/25'}`}>
               {!empty && (
                 <div
                   className="h-full rounded-sm transition-all duration-700"
@@ -548,7 +548,7 @@ function PriceTrendsView({ allMarkets }: { allMarkets: MarketItem[] }) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-green-400 text-xs font-bold tracking-widest flex items-center gap-2 mb-1">
+        <h2 className="text-blue-400 text-xs font-bold tracking-widest flex items-center gap-2 mb-1">
           <TrendingUp className="w-3.5 h-3.5" /> PRICE TRENDS
         </h2>
         <p className="text-[10px] text-gray-600">Search by keyword or paste a polymarket.com link to compare YES price over 30 days</p>
@@ -557,10 +557,10 @@ function PriceTrendsView({ allMarkets }: { allMarkets: MarketItem[] }) {
       {/* Search / URL input */}
       <div className="relative">
         <div className={`flex items-center gap-2 border rounded px-3 py-2 bg-black/30 transition-colors
-          ${urlStatus === 'error' ? 'border-red-500/50' : isUrl ? 'border-cyan-500/40 focus-within:border-cyan-500/70' : 'border-green-500/30 focus-within:border-green-500/60'}`}>
+          ${urlStatus === 'error' ? 'border-red-500/50' : isUrl ? 'border-cyan-500/40 focus-within:border-cyan-500/70' : 'border-blue-500/30 focus-within:border-blue-500/60'}`}>
           {isUrl
             ? <ExternalLink className="w-3.5 h-3.5 text-cyan-500/50 shrink-0" />
-            : <Search className="w-3.5 h-3.5 text-green-500/40 shrink-0" />}
+            : <Search className="w-3.5 h-3.5 text-blue-500/40 shrink-0" />}
           <input
             ref={inputRef}
             value={query}
@@ -589,7 +589,7 @@ function PriceTrendsView({ allMarkets }: { allMarkets: MarketItem[] }) {
 
         {/* Dropdown results (keyword search only) */}
         {results.length > 0 && (
-          <div className="absolute top-full mt-1 left-0 right-0 bg-[#0a0a0a] border border-green-500/25 rounded shadow-xl z-10 overflow-hidden">
+          <div className="absolute top-full mt-1 left-0 right-0 bg-[#0a0a0a] border border-blue-500/25 rounded shadow-xl z-10 overflow-hidden">
             {results.map((m, i) => {
               const already = pinnedIds.has(m.yesTokenId!);
               return (
@@ -597,10 +597,10 @@ function PriceTrendsView({ allMarkets }: { allMarkets: MarketItem[] }) {
                   key={i}
                   onClick={() => !already && addMarket(m)}
                   disabled={already || pinned.length >= 8}
-                  className={`w-full text-left px-3 py-2 flex items-center gap-3 transition-colors text-xs font-mono border-b border-green-500/10 last:border-0
-                    ${already ? 'opacity-40 cursor-default' : 'hover:bg-green-500/8 cursor-pointer'}`}
+                  className={`w-full text-left px-3 py-2 flex items-center gap-3 transition-colors text-xs font-mono border-b border-blue-500/10 last:border-0
+                    ${already ? 'opacity-40 cursor-default' : 'hover:bg-blue-500/8 cursor-pointer'}`}
                 >
-                  <Plus className={`w-3 h-3 shrink-0 ${already ? 'text-gray-600' : 'text-green-500/50'}`} />
+                  <Plus className={`w-3 h-3 shrink-0 ${already ? 'text-gray-600' : 'text-blue-500/50'}`} />
                   <span className="flex-1 truncate text-gray-300">{m.question}</span>
                   <span className="text-[10px] text-gray-600 shrink-0">{fmtUSD(m.liquidity)}</span>
                 </button>
@@ -609,7 +609,7 @@ function PriceTrendsView({ allMarkets }: { allMarkets: MarketItem[] }) {
           </div>
         )}
         {query.trim() && !isUrl && results.length === 0 && (
-          <div className="absolute top-full mt-1 left-0 right-0 bg-[#0a0a0a] border border-green-500/15 rounded px-3 py-2 text-[10px] text-gray-600 font-mono">
+          <div className="absolute top-full mt-1 left-0 right-0 bg-[#0a0a0a] border border-blue-500/15 rounded px-3 py-2 text-[10px] text-gray-600 font-mono">
             No markets found — try different keywords or paste a URL
           </div>
         )}
@@ -639,19 +639,19 @@ function PriceTrendsView({ allMarkets }: { allMarkets: MarketItem[] }) {
 
       {/* Chart */}
       {series.length > 0 ? (
-        <div className="border border-green-500/15 rounded p-4 bg-green-500/3">
+        <div className="border border-blue-500/15 rounded p-4 bg-blue-500/3">
           <PriceHistoryChart series={series} onRemove={removeMarket} />
         </div>
       ) : pinned.length > 0 && fetching.size > 0 ? (
-        <div className="border border-green-500/10 rounded p-6 text-center text-[10px] text-green-500/30 font-mono animate-pulse">
+        <div className="border border-blue-500/10 rounded p-6 text-center text-[10px] text-blue-500/30 font-mono animate-pulse">
           FETCHING PRICE DATA…
         </div>
       ) : pinned.length > 0 ? (
-        <div className="border border-green-500/10 rounded p-6 text-center text-[10px] text-gray-600 font-mono">
+        <div className="border border-blue-500/10 rounded p-6 text-center text-[10px] text-gray-600 font-mono">
           No price history available for selected markets
         </div>
       ) : (
-        <div className="border border-green-500/10 rounded p-10 text-center space-y-2">
+        <div className="border border-blue-500/10 rounded p-10 text-center space-y-2">
           <div className="text-[10px] text-gray-700 font-mono">Search by keyword or paste a market URL to get started</div>
           <div className="text-[9px] text-gray-800 font-mono">e.g. polymarket.com/event/will-trump-impose-tariffs-on-canada</div>
         </div>
@@ -721,31 +721,31 @@ function LineChart({ snaps, cats }: { snaps: DailySnap[]; cats: CatData[] }) {
 
 function MarketTable({ markets }: { markets: MarketItem[] }) {
   return (
-    <div className="border border-green-500/20 rounded overflow-hidden">
+    <div className="border border-blue-500/20 rounded overflow-hidden">
       <table className="w-full text-xs font-mono">
         <thead>
-          <tr className="border-b border-green-500/20 bg-green-500/5">
-            <th className="text-left px-3 py-2 text-green-500/50 font-normal tracking-widest">MARKET</th>
-            <th className="text-left px-3 py-2 text-green-500/50 font-normal tracking-widest w-28">SUBCATEGORY</th>
-            <th className="text-right px-3 py-2 text-green-500/50 font-normal tracking-widest w-24">LIQUIDITY</th>
-            <th className="text-right px-3 py-2 text-green-500/50 font-normal tracking-widest w-24">24H VOL</th>
+          <tr className="border-b border-blue-500/20 bg-blue-500/5">
+            <th className="text-left px-3 py-2 text-blue-500/50 font-normal tracking-widest">MARKET</th>
+            <th className="text-left px-3 py-2 text-blue-500/50 font-normal tracking-widest w-28">SUBCATEGORY</th>
+            <th className="text-right px-3 py-2 text-blue-500/50 font-normal tracking-widest w-24">LIQUIDITY</th>
+            <th className="text-right px-3 py-2 text-blue-500/50 font-normal tracking-widest w-24">24H VOL</th>
             <th className="w-8 px-2" />
           </tr>
         </thead>
         <tbody>
           {markets.slice(0, 25).map((m, i) => (
-            <tr key={i} className="border-b border-green-500/10 last:border-0 hover:bg-green-500/5 transition-colors">
+            <tr key={i} className="border-b border-blue-500/10 last:border-0 hover:bg-blue-500/5 transition-colors">
               <td className="px-3 py-2 text-gray-300 max-w-0"><div className="truncate" title={m.question}>{m.question}</div></td>
               <td className="px-3 py-2">
                 <span className="text-[10px] px-1.5 py-0.5 rounded border font-mono" style={{ color: m.color, borderColor: m.color + '40', backgroundColor: m.color + '15' }}>
                   {m.sub || m.category}
                 </span>
               </td>
-              <td className="px-3 py-2 text-right text-green-400 tabular-nums">{fmtUSD(m.liquidity)}</td>
+              <td className="px-3 py-2 text-right text-blue-400 tabular-nums">{fmtUSD(m.liquidity)}</td>
               <td className="px-3 py-2 text-right text-gray-400 tabular-nums">{fmtUSD(m.volume24h)}</td>
               <td className="px-2 py-2 text-center">
                 {m.slug && (
-                  <a href={m.slug} target="_blank" rel="noopener noreferrer" className="text-green-500/30 hover:text-green-400 inline-flex">
+                  <a href={m.slug} target="_blank" rel="noopener noreferrer" className="text-blue-500/30 hover:text-blue-400 inline-flex">
                     <ExternalLink className="w-3 h-3" />
                   </a>
                 )}
@@ -762,9 +762,9 @@ function MarketTable({ markets }: { markets: MarketItem[] }) {
 
 function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <div className="border border-green-500/20 bg-green-500/5 rounded p-4">
-      <div className="text-[10px] font-mono text-green-500/50 tracking-widest mb-1">{label}</div>
-      <div className="text-xl font-mono text-green-400 font-bold">{value}</div>
+    <div className="border border-blue-500/20 bg-blue-500/5 rounded p-4">
+      <div className="text-[10px] font-mono text-blue-500/50 tracking-widest mb-1">{label}</div>
+      <div className="text-xl font-mono text-blue-400 font-bold">{value}</div>
       {sub && <div className="text-[10px] font-mono text-gray-600 mt-0.5">{sub}</div>}
     </div>
   );
@@ -921,17 +921,17 @@ export default function LiquidityDashboard({ onClose }: { onClose: () => void })
   return (
     <div className="fixed inset-0 z-50 bg-[#050505] flex flex-col font-mono">
       {/* Header */}
-      <div className="shrink-0 border-b border-green-500/20 px-6 py-3 flex items-center justify-between">
+      <div className="shrink-0 border-b border-blue-500/20 px-6 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Droplets className="w-4 h-4 text-green-400" />
+          <Droplets className="w-4 h-4 text-blue-400" />
           <div>
-            <div className="text-green-400 font-bold tracking-widest text-sm">// POLYMARKET LIQUIDITY</div>
-            <div className="text-[10px] text-green-500/40 tracking-wider">market depth · categorised by topic</div>
+            <div className="text-blue-400 font-bold tracking-widest text-sm">// POLYMARKET LIQUIDITY</div>
+            <div className="text-[10px] text-blue-500/40 tracking-wider">market depth · categorised by topic</div>
           </div>
         </div>
         <div className="flex items-center gap-2">
           <button onClick={loadData} disabled={loading}
-            className="flex items-center gap-1.5 px-3 py-1.5 border border-green-500/30 text-green-400 rounded text-xs hover:bg-green-500/10 transition-colors disabled:opacity-40">
+            className="flex items-center gap-1.5 px-3 py-1.5 border border-blue-500/30 text-blue-400 rounded text-xs hover:bg-blue-500/10 transition-colors disabled:opacity-40">
             <RefreshCw className={`w-3 h-3 ${loading ? 'animate-spin' : ''}`} /> REFRESH
           </button>
           <button onClick={onClose} className="p-1.5 text-gray-600 hover:text-gray-300 transition-colors">
@@ -943,14 +943,14 @@ export default function LiquidityDashboard({ onClose }: { onClose: () => void })
       {/* Body */}
       <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
         {/* Mobile: horizontal scroll tab bar */}
-        <div className="md:hidden flex overflow-x-auto border-b border-green-500/20 bg-black/40 shrink-0 scrollbar-hide">
+        <div className="md:hidden flex overflow-x-auto border-b border-blue-500/20 bg-black/40 shrink-0 scrollbar-hide">
           <button onClick={() => setSelected(null)}
-            className={`shrink-0 px-4 py-2.5 text-xs font-mono whitespace-nowrap border-b-2 transition-colors ${!selected ? 'border-green-400 text-green-400' : 'border-transparent text-gray-500'}`}>
+            className={`shrink-0 px-4 py-2.5 text-xs font-mono whitespace-nowrap border-b-2 transition-colors ${!selected ? 'border-blue-400 text-blue-400' : 'border-transparent text-gray-500'}`}>
             All
           </button>
           {catData.map(c => (
             <button key={c.label} onClick={() => setSelected(c.label)}
-              className={`shrink-0 px-4 py-2.5 text-xs font-mono whitespace-nowrap border-b-2 transition-colors flex items-center gap-1.5 ${selected === c.label ? 'border-green-400 text-white' : 'border-transparent text-gray-500'}`}>
+              className={`shrink-0 px-4 py-2.5 text-xs font-mono whitespace-nowrap border-b-2 transition-colors flex items-center gap-1.5 ${selected === c.label ? 'border-blue-400 text-white' : 'border-transparent text-gray-500'}`}>
               <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: c.color }} />
               {c.label}
             </button>
@@ -961,30 +961,30 @@ export default function LiquidityDashboard({ onClose }: { onClose: () => void })
           </button>
           {([['overview','Overview'],['markets','Top Markets'],['price-trends','Trends']] as const).map(([v,label]) => (
             <button key={v} onClick={() => setView(v)}
-              className={`shrink-0 px-4 py-2.5 text-xs font-mono whitespace-nowrap border-b-2 transition-colors ${view === v ? 'border-green-400 text-green-400' : 'border-transparent text-gray-600'}`}>
+              className={`shrink-0 px-4 py-2.5 text-xs font-mono whitespace-nowrap border-b-2 transition-colors ${view === v ? 'border-blue-400 text-blue-400' : 'border-transparent text-gray-600'}`}>
               {label}
             </button>
           ))}
         </div>
 
         {/* Desktop: sidebar */}
-        <div className="hidden md:flex w-48 shrink-0 border-r border-green-500/20 flex-col py-4 overflow-y-auto">
-          <div className="px-4 mb-3 text-[9px] text-green-500/40 tracking-widest font-bold">CATEGORIES</div>
+        <div className="hidden md:flex w-48 shrink-0 border-r border-blue-500/20 flex-col py-4 overflow-y-auto">
+          <div className="px-4 mb-3 text-[9px] text-blue-500/40 tracking-widest font-bold">CATEGORIES</div>
 
           <button onClick={() => setSelected(null)}
-            className={`w-full text-left px-4 py-2 text-xs flex items-center justify-between transition-colors ${!selected ? 'text-green-400 bg-green-500/10' : 'text-gray-500 hover:text-gray-300'}`}>
+            className={`w-full text-left px-4 py-2 text-xs flex items-center justify-between transition-colors ${!selected ? 'text-blue-400 bg-blue-500/10' : 'text-gray-500 hover:text-gray-300'}`}>
             All Markets
             {!selected && <ChevronRight className="w-3 h-3" />}
           </button>
 
           {loading && !catData.length ? (
             [...Array(6)].map((_, i) => (
-              <div key={i} className="mx-4 my-1 h-5 bg-green-500/5 rounded animate-pulse" />
+              <div key={i} className="mx-4 my-1 h-5 bg-blue-500/5 rounded animate-pulse" />
             ))
           ) : (
             catData.map(c => (
               <button key={c.label} onClick={() => setSelected(c.label)}
-                className={`w-full text-left px-4 py-2 text-xs flex items-center justify-between group transition-colors ${selected === c.label ? 'bg-green-500/10' : 'hover:bg-green-500/5'}`}>
+                className={`w-full text-left px-4 py-2 text-xs flex items-center justify-between group transition-colors ${selected === c.label ? 'bg-blue-500/10' : 'hover:bg-blue-500/5'}`}>
                 <div className="flex items-center gap-2">
                   <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: c.color }} />
                   <span className={selected === c.label ? 'text-white' : 'text-gray-400 group-hover:text-gray-200'}>{c.label}</span>
@@ -995,7 +995,7 @@ export default function LiquidityDashboard({ onClose }: { onClose: () => void })
           )}
 
           {/* Low Liquidity special entry */}
-          <div className="mx-3 my-3 border-t border-green-500/10" />
+          <div className="mx-3 my-3 border-t border-blue-500/10" />
           <button
             onClick={() => setSelected(LOW_LIQ_KEY)}
             className={`w-full text-left px-4 py-2 text-xs flex items-center justify-between group transition-colors ${isLowLiq ? 'bg-amber-500/10' : 'hover:bg-amber-500/5'}`}
@@ -1007,14 +1007,14 @@ export default function LiquidityDashboard({ onClose }: { onClose: () => void })
             <span className="text-[9px] text-gray-600">{lowLiqMarkets.length} mkts</span>
           </button>
 
-          <div className="px-4 mt-6 mb-2 text-[9px] text-green-500/40 tracking-widest font-bold">VIEW</div>
+          <div className="px-4 mt-6 mb-2 text-[9px] text-blue-500/40 tracking-widest font-bold">VIEW</div>
           {([
             ['overview',     'Overview'],
             ['markets',      'Top Markets'],
             ['price-trends', 'Price Trends'],
           ] as const).map(([v, label]) => (
             <button key={v} onClick={() => setView(v)}
-              className={`w-full text-left px-4 py-1.5 text-xs transition-colors flex items-center gap-2 ${view === v ? 'text-green-400' : 'text-gray-600 hover:text-gray-400'}`}>
+              className={`w-full text-left px-4 py-1.5 text-xs transition-colors flex items-center gap-2 ${view === v ? 'text-blue-400' : 'text-gray-600 hover:text-gray-400'}`}>
               {v === 'price-trends' && <TrendingUp className="w-3 h-3 shrink-0" />}
               {label}
             </button>
@@ -1030,7 +1030,7 @@ export default function LiquidityDashboard({ onClose }: { onClose: () => void })
           )}
 
           {loading && !catData.length ? (
-            <div className="flex items-center justify-center h-64 text-green-500/40 text-sm tracking-widest">
+            <div className="flex items-center justify-center h-64 text-blue-500/40 text-sm tracking-widest">
               <span className="animate-pulse">FETCHING MARKET DATA…</span>
             </div>
           ) : isLowLiq ? (
@@ -1096,7 +1096,7 @@ export default function LiquidityDashboard({ onClose }: { onClose: () => void })
               <div>
                 <div className="text-[10px] text-amber-500/50 tracking-widest mb-3">ALL LOW LIQUIDITY MARKETS</div>
                 {lowLiqMarkets.length === 0 ? (
-                  <div className="text-center text-gray-600 text-xs py-12 border border-green-500/10 rounded">
+                  <div className="text-center text-gray-600 text-xs py-12 border border-blue-500/10 rounded">
                     No markets found under {fmtUSD(lowLiqThreshold)} — try a higher threshold
                   </div>
                 ) : (
@@ -1143,7 +1143,7 @@ export default function LiquidityDashboard({ onClose }: { onClose: () => void })
           ) : view === 'markets' ? (
             /* ── Top Markets view ── */
             <div>
-              <h2 className="text-green-400 text-xs font-bold tracking-widest mb-4">
+              <h2 className="text-blue-400 text-xs font-bold tracking-widest mb-4">
                 {selCat ? `// ${selCat.label.toUpperCase()} MARKETS` : '// TOP MARKETS'}
               </h2>
               <MarketTable markets={selCat ? selCat.markets : allMarkets} />
@@ -1164,7 +1164,7 @@ export default function LiquidityDashboard({ onClose }: { onClose: () => void })
 
               {selCat.subs.length > 0 && (
                 <div>
-                  <div className="text-[10px] text-green-500/50 tracking-widest mb-3">SUBCATEGORY BREAKDOWN — click to filter markets</div>
+                  <div className="text-[10px] text-blue-500/50 tracking-widest mb-3">SUBCATEGORY BREAKDOWN — click to filter markets</div>
                   <SubBarChart
                     subs={selCat.subs}
                     color={selCat.color}
@@ -1177,8 +1177,8 @@ export default function LiquidityDashboard({ onClose }: { onClose: () => void })
               {/* Snapshot liquidity trend */}
               {snaps.length >= 2 && (
                 <div>
-                  <div className="text-[10px] text-green-500/50 tracking-widest mb-3">LIQUIDITY OVER TIME ({snaps.length} days)</div>
-                  <div className="border border-green-500/15 rounded p-3 bg-green-500/5">
+                  <div className="text-[10px] text-blue-500/50 tracking-widest mb-3">LIQUIDITY OVER TIME ({snaps.length} days)</div>
+                  <div className="border border-blue-500/15 rounded p-3 bg-blue-500/5">
                     <LineChart
                       snaps={snaps.map(s => ({ date: s.date, byCategory: { [selCat.label]: s.byCategory[selCat.label] ?? 0 } }))}
                       cats={[selCat]}
@@ -1189,7 +1189,7 @@ export default function LiquidityDashboard({ onClose }: { onClose: () => void })
 
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <div className="text-[10px] text-green-500/50 tracking-widest">
+                  <div className="text-[10px] text-blue-500/50 tracking-widest">
                     {selectedSub ? (
                       <span>
                         MARKETS IN <span style={{ color: selCat.color }}>{selectedSub.toUpperCase()}</span>
@@ -1225,22 +1225,22 @@ export default function LiquidityDashboard({ onClose }: { onClose: () => void })
 
               {/* Category bar chart */}
               <div>
-                <div className="text-[10px] text-green-500/50 tracking-widest mb-4">LIQUIDITY BY CATEGORY — click to drill in</div>
+                <div className="text-[10px] text-blue-500/50 tracking-widest mb-4">LIQUIDITY BY CATEGORY — click to drill in</div>
                 <HBarChart cats={catData} selected={selected} onSelect={setSelected} />
               </div>
 
               {/* Liquidity over time */}
               <div>
-                <div className="text-[10px] text-green-500/50 tracking-widest mb-1">LIQUIDITY BY CATEGORY OVER TIME</div>
+                <div className="text-[10px] text-blue-500/50 tracking-widest mb-1">LIQUIDITY BY CATEGORY OVER TIME</div>
                 <div className="text-[9px] text-gray-700 mb-3 font-mono">
                   Recorded each session · {snaps.length}/30 days · for price trends see the Price Trends view
                 </div>
                 {snaps.length >= 2 ? (
-                  <div className="border border-green-500/15 rounded p-4 bg-green-500/5">
+                  <div className="border border-blue-500/15 rounded p-4 bg-blue-500/5">
                     <LineChart snaps={snaps} cats={catData} />
                   </div>
                 ) : (
-                  <div className="border border-green-500/10 rounded p-3 text-[10px] text-green-500/30 font-mono">
+                  <div className="border border-blue-500/10 rounded p-3 text-[10px] text-blue-500/30 font-mono">
                     Day 1 of 30 captured · revisit tomorrow for trend data — Polymarket's public API does not expose historical aggregate liquidity
                   </div>
                 )}
@@ -1248,7 +1248,7 @@ export default function LiquidityDashboard({ onClose }: { onClose: () => void })
 
               {/* Top markets table */}
               <div>
-                <div className="text-[10px] text-green-500/50 tracking-widest mb-3">TOP MARKETS BY LIQUIDITY</div>
+                <div className="text-[10px] text-blue-500/50 tracking-widest mb-3">TOP MARKETS BY LIQUIDITY</div>
                 <MarketTable markets={allMarkets} />
               </div>
             </div>
