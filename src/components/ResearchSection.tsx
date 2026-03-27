@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { BookOpen, Clock, ArrowUpRight, Search, X, Loader2, ExternalLink } from 'lucide-react';
+import { BookOpen, Clock, ArrowUpRight, Search, X, Loader2, ExternalLink, Brain } from 'lucide-react';
+import { analyzeAccountStrategy } from '../services/geminiService';
 import TradeJournal from './TradeJournal';
 import {
   fetchPolyActivity,
@@ -51,7 +52,24 @@ function shortAddr(addr: string) {
 }
 
 function AccountCard({ account, onRemove }: { account: TrackedAccount; onRemove: () => void }) {
-  const [tab, setTab] = useState<'activity' | 'positions'>('positions');
+  const [tab, setTab] = useState<'activity' | 'positions' | 'strategy'>('positions');
+  const [strategyText, setStrategyText] = useState<string>('');
+  const [strategyLoading, setStrategyLoading] = useState(false);
+  const [strategyFetched, setStrategyFetched] = useState(false);
+
+  async function loadStrategy() {
+    if (strategyFetched) return;
+    setStrategyLoading(true);
+    try {
+      const result = await analyzeAccountStrategy(account.trades, account.positions);
+      setStrategyText(result);
+    } catch {
+      setStrategyText('Failed to analyze strategy. Please try again.');
+    } finally {
+      setStrategyLoading(false);
+      setStrategyFetched(true);
+    }
+  }
 
   const totalPnl = account.positions.reduce((s, p) => s + p.cashPnl, 0);
   const openCount = account.positions.filter(p => !p.closed).length;
@@ -111,6 +129,12 @@ function AccountCard({ account, onRemove }: { account: TrackedAccount; onRemove:
             {t.toUpperCase()}
           </button>
         ))}
+        <button
+          onClick={() => { setTab('strategy'); loadStrategy(); }}
+          className={`px-5 py-2 text-xs font-mono transition-colors flex items-center gap-1.5 ${tab === 'strategy' ? 'text-blue-400 border-b-2 border-blue-400 -mb-px' : 'text-gray-500 hover:text-blue-400'}`}
+        >
+          <Brain className="w-3 h-3" /> STRATEGY
+        </button>
       </div>
 
       {/* Positions */}
@@ -185,6 +209,31 @@ function AccountCard({ account, onRemove }: { account: TrackedAccount; onRemove:
                 ))}
               </tbody>
             </table>
+          )}
+        </div>
+      )}
+
+      {/* Strategy */}
+      {tab === 'strategy' && (
+        <div className="px-5 py-5">
+          {strategyLoading ? (
+            <div className="flex items-center gap-3 text-xs text-gray-500 font-mono">
+              <Loader2 className="w-4 h-4 animate-spin text-blue-400" />
+              Analyzing trading patterns...
+            </div>
+          ) : strategyText ? (
+            <div className="text-xs text-gray-300 font-mono leading-relaxed whitespace-pre-wrap">{strategyText}</div>
+          ) : (
+            <div className="flex flex-col items-center gap-3 py-4 text-center">
+              <Brain className="w-6 h-6 text-blue-500/40" />
+              <p className="text-xs text-gray-500 font-mono">Click to analyze this account's trading strategy using AI</p>
+              <button
+                onClick={loadStrategy}
+                className="px-4 py-2 text-xs font-mono bg-blue-500/10 border border-blue-500/30 text-blue-400 rounded hover:bg-blue-500/20 transition-colors"
+              >
+                ANALYZE STRATEGY
+              </button>
+            </div>
           )}
         </div>
       )}

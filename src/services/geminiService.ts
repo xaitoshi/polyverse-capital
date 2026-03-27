@@ -1,6 +1,7 @@
 import { GoogleGenAI } from '@google/genai';
 import { NewsItem } from './newsService';
 import { MarketData } from '../data/mockData';
+import { PolyTrade, PolyPosition } from './polymarketUserService';
 
 const GEMINI_KEY = process.env.GEMINI_API_KEY || '';
 const COMMONSTACK_KEY = process.env.COMMONSTACK_API_KEY || '';
@@ -385,4 +386,78 @@ export async function chatWithOsint(
   }
 
   throw new Error('Chat request failed. Please try again.');
+}
+
+// --- Account strategy analysis ---
+
+function buildStrategyPrompt(trades: PolyTrade[], positions: PolyPosition[]): string {
+  const tradeBlock = trades
+    .slice(0, 50)
+    .map(t => `- ${t.type} ${t.outcome.toUpperCase()} | ${t.title} | ${(t.price * 100).toFixed(1)}¢ | $${t.usdcSize.toFixed(2)} | ${new Date(t.timestamp * 1000).toLocaleDateString()}`)
+    .join('\n');
+
+  const posBlock = positions
+    .slice(0, 30)
+    .map(p => `- ${p.outcome.toUpperCase()} | ${p.title} | avg ${(p.avgPrice * 100).toFixed(1)}¢ | ${p.size.toFixed(0)} shares | P&L: ${p.cashPnl >= 0 ? '+' : ''}$${p.cashPnl.toFixed(2)} (${p.percentPnl >= 0 ? '+' : ''}${p.percentPnl.toFixed(1)}%)${p.closed ? ' [CLOSED]' : ''}`)
+    .join('\n');
+
+  return `You are an expert prediction market analyst. Analyze the following Polymarket account's trade history and current positions to infer their trading strategy.
+
+RECENT TRADES:
+${tradeBlock || 'No recent trades available.'}
+
+POSITIONS:
+${posBlock || 'No positions available.'}
+
+Based on this data, write a concise 3-5 paragraph analysis covering:
+1. What type of trader this appears to be (e.g. news trader, contrarian, momentum, arbitrageur, long-shot hunter, etc.)
+2. What categories of markets they focus on (politics, sports, crypto, macro, etc.)
+3. Their apparent edge or thesis — how do they seem to be trying to make money?
+4. Position sizing and risk management patterns
+5. Overall assessment — is this a disciplined, strategy-driven trader or more opportunistic?
+
+Be specific and reference actual trades/positions from the data. Write in plain text, no JSON, no bullet points — flowing paragraphs like an analyst report.`;
+}
+
+export async function analyzeAccountStrategy(trades: PolyTrade[], positions: PolyPosition[]): Promise<string> {
+  if (!GEMINI_KEY && !COMMONSTACK_KEY) {
+    return 'No API keys configured. Add GEMINI_API_KEY or COMMONSTACK_API_KEY to .env.local to enable strategy analysis.';
+  }
+
+  if (trades.length === 0 && positions.length === 0) {
+    return 'Not enough trading data to analyze strategy.';
+  }
+
+  if (!incrementUsage()) {
+    return 'Daily API limit reached. Strategy analysis will resume tomorrow.';
+  }
+
+  const prompt = buildStrategyPrompt(trades, positions);
+
+  // Try Commonstack first
+  if (COMMONSTACK_KEY) {
+    try {
+      const systemMsg = 'You are an expert prediction market analyst. Write plain text analysis only — no JSON, no markdown headers.';
+      const response = await callCommonstack(systemMsg, prompt);
+      if (response) return response;
+    } catch (err) {
+      console.warn('Commonstack strategy analysis failed, falling back to Gemini:', err);
+    }
+  }
+
+  // Fallback to Gemini
+  if (GEMINI_KEY) {
+    try {
+      const ai = new GoogleGenAI({ apiKey: GEMINI_KEY });
+      const response = await ai.models.generateContent({
+        model: 'gemini-2.0-flash',
+        contents: prompt,
+      });
+      return response.text?.trim() || 'No analysis generated.';
+    } catch (err) {
+      console.error('Gemini strategy analysis failed:', err);
+    }
+  }
+
+  throw new Error('Strategy analysis failed. Please try again.');
 }
