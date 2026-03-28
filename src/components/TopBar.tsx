@@ -142,8 +142,8 @@ export default function TopBar({ onOpenEcosystem, onOpenPolyEarn, onOpenOsint, o
       <div className="flex lg:hidden flex-col gap-2 pointer-events-auto">
         {/* Top row */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5 bg-black/70 border border-blue-500/30 backdrop-blur-md px-3 py-2 rounded-lg text-blue-400 font-mono font-bold text-sm tracking-wider">
-            <Globe2 className="w-4 h-4" />
+          <div className="flex items-center gap-1 bg-black/70 border border-blue-500/30 backdrop-blur-md px-2 py-1.5 rounded-lg text-blue-400 font-mono font-bold text-xs tracking-wider">
+            <Globe2 className="w-3 h-3" />
             POLYVERSE CAPITAL
           </div>
           <div className="flex items-center gap-2">
