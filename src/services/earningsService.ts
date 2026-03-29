@@ -178,7 +178,7 @@ export async function fetchEarningsHistory(symbol: string): Promise<HistoricalQu
         };
       });
 
-    historyCache.set(symbol, quarters);
+    if (quarters.length > 0) historyCache.set(symbol, quarters); // don't cache empty results
     return quarters;
   } catch {
     return [];

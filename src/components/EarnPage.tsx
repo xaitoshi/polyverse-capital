@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Activity, ArrowLeft, BarChart3, Calendar, ExternalLink, Loader2, Radar, Target, TrendingDown, TrendingUp } from 'lucide-react';
+import { Activity, ArrowLeft, BarChart3, Calendar, ExternalLink, Loader2, Radar, Target, TrendingDown, TrendingUp, Trophy } from 'lucide-react';
 import {
   EarnBacktestCase,
   EarnBacktestResult,
@@ -10,6 +10,41 @@ import {
   formatEarningsDate,
   formatHour,
 } from '../services/earnEngine';
+
+// ── Polyhermes agent backtest — Mar 4–25 2026 (static, YES bets only) ─────────
+const POLYHERMES_STATS = { bets: 54, wins: 47, winRate: 87.0, period: 'Mar 4–25, 2026' };
+const POLYHERMES_ROWS = [
+  { n:1,  date:'2026-03-25', t:'CTAS', o:'BEAT', r:'WIN',  s:8.8,  br:'100%', rc:'3/4', as:'+1.5%',   est:1.23,  act:1.24  },
+  { n:2,  date:'2026-03-25', t:'PAYX', o:'BEAT', r:'WIN',  s:8.8,  br:'100%', rc:'3/4', as:'+1.1%',   est:1.68,  act:1.71  },
+  { n:3,  date:'2026-03-19', t:'FDX',  o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+8.6%',   est:4.14,  act:5.25  },
+  { n:4,  date:'2026-03-19', t:'ACN',  o:'BEAT', r:'WIN',  s:8.8,  br:'100%', rc:'3/4', as:'+4.4%',   est:2.86,  act:2.93  },
+  { n:5,  date:'2026-03-18', t:'FIVE', o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+81.8%',  est:3.99,  act:4.31  },
+  { n:6,  date:'2026-03-18', t:'GIS',  o:'MISS', r:'LOSS', s:10.0, br:'100%', rc:'3/4', as:'+6.1%',   est:0.74,  act:0.64  },
+  { n:7,  date:'2026-03-18', t:'JBL',  o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+6.4%',   est:2.39,  act:2.44  },
+  { n:8,  date:'2026-03-18', t:'MU',   o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+17.9%',  est:8.64,  act:12.08 },
+  { n:9,  date:'2026-03-18', t:'WSM',  o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+7.2%',   est:2.89,  act:3.04  },
+  { n:10, date:'2026-03-17', t:'ESLT', o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+19.7%',  est:3.23,  act:3.56  },
+  { n:11, date:'2026-03-17', t:'LULU', o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+8.7%',   est:4.76,  act:5.01  },
+  { n:12, date:'2026-03-16', t:'DLTR', o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+39.8%',  est:2.53,  act:2.56  },
+  { n:13, date:'2026-03-12', t:'DG',   o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+26.5%',  est:1.61,  act:1.93  },
+  { n:14, date:'2026-03-12', t:'RBRK', o:'BEAT', r:'WIN',  s:8.8,  br:'100%', rc:'3/4', as:'+36.7%',  est:-0.53, act:-0.37 },
+  { n:15, date:'2026-03-12', t:'ULTA', o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+14.6%',  est:8.00,  act:8.01  },
+  { n:16, date:'2026-03-12', t:'WPM',  o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+7.9%',   est:0.93,  act:1.22  },
+  { n:17, date:'2026-03-12', t:'ADBE', o:'MISS', r:'LOSS', s:8.8,  br:'100%', rc:'3/4', as:'+2.6%',   est:4.85,  act:4.83  },
+  { n:18, date:'2026-03-10', t:'FNV',  o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+8.0%',   est:1.68,  act:1.85  },
+  { n:19, date:'2026-03-10', t:'ORCL', o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+19.8%',  est:1.34,  act:1.43  },
+  { n:20, date:'2026-03-09', t:'CASY', o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+228.7%', est:3.01,  act:3.49  },
+  { n:21, date:'2026-03-05', t:'BJ',   o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+11.5%',  est:0.93,  act:0.96  },
+  { n:22, date:'2026-03-05', t:'BURL', o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+17.0%',  est:4.70,  act:4.89  },
+  { n:23, date:'2026-03-05', t:'CNO',  o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+13.9%',  est:0.53,  act:0.59  },
+  { n:24, date:'2026-03-05', t:'GWRE', o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+252.7%', est:0.33,  act:0.72  },
+  { n:25, date:'2026-03-05', t:'IOT',  o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+81.9%',  est:-0.01, act:0.04  },
+  { n:26, date:'2026-03-05', t:'JD',   o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+22.2%',  est:-0.03, act:-0.02 },
+  { n:27, date:'2026-03-05', t:'COO',  o:'BEAT', r:'WIN',  s:8.8,  br:'100%', rc:'3/4', as:'+3.2%',   est:1.03,  act:1.10  },
+  { n:28, date:'2026-03-05', t:'COST', o:'BEAT', r:'WIN',  s:8.8,  br:'100%', rc:'3/4', as:'+1.2%',   est:4.55,  act:4.58  },
+  { n:29, date:'2026-03-05', t:'KR',   o:'BEAT', r:'WIN',  s:8.8,  br:'100%', rc:'3/4', as:'+2.6%',   est:1.20,  act:1.28  },
+  { n:30, date:'2026-03-04', t:'DY',   o:'BEAT', r:'WIN',  s:10.0, br:'100%', rc:'3/4', as:'+26.6%',  est:1.91,  act:2.03  },
+] as const;
 
 function scoreColor(score: number): string {
   if (score >= 8) return 'text-blue-400';
@@ -304,6 +339,69 @@ export default function EarnPage() {
             {error}
           </div>
         )}
+
+        {/* ── Polyhermes agent track record (static) ─────────────────────── */}
+        <section className="mt-8">
+          <div className="mb-4 flex items-center gap-3">
+            <Trophy className="h-5 w-5 text-green-400" />
+            <h2 className="text-xl font-bold text-white">Polyhermes agent track record</h2>
+            <span className="rounded-full border border-green-500/30 bg-green-500/10 px-3 py-0.5 font-mono text-xs text-green-400">
+              {POLYHERMES_STATS.period}
+            </span>
+          </div>
+
+          {/* Summary bar */}
+          <div className="mb-4 flex flex-wrap items-center gap-x-6 gap-y-2 rounded-xl border border-green-500/15 bg-green-500/5 px-4 py-3 text-sm font-mono">
+            <span><span className="text-white font-bold">YES bets:</span> <span className="text-gray-300">{POLYHERMES_STATS.bets}</span></span>
+            <span className="text-gray-700">|</span>
+            <span><span className="text-white font-bold">YES wins:</span> <span className="text-gray-300">{POLYHERMES_STATS.wins}</span></span>
+            <span className="text-gray-700">|</span>
+            <span><span className="text-white font-bold">YES win rate:</span> <span className="text-green-400 font-black">{POLYHERMES_STATS.winRate}%</span></span>
+            <span className="text-gray-700">|</span>
+            <span className="text-gray-500">Top {POLYHERMES_ROWS.length} YES signals shown</span>
+          </div>
+
+          {/* Table */}
+          <div className="overflow-x-auto rounded-2xl border border-blue-500/10 bg-black/40">
+            <table className="w-full text-xs font-mono">
+              <thead>
+                <tr className="border-b border-blue-500/10">
+                  {['#','Date','Ticker','Outcome','Result','Score','BeatRate','Recent','AvgSurp','Est','Actual EPS'].map(col => (
+                    <th key={col} className="whitespace-nowrap px-3 py-3 text-left text-[11px] font-bold tracking-wider text-blue-400/70">{col}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {POLYHERMES_ROWS.map((row, i) => (
+                  <tr key={row.n} className={`border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors ${i % 2 === 1 ? 'bg-white/[0.01]' : ''}`}>
+                    <td className="px-3 py-2 text-gray-600">{row.n}</td>
+                    <td className="px-3 py-2 whitespace-nowrap text-gray-400">{row.date}</td>
+                    <td className="px-3 py-2 font-bold tracking-wider text-white">{row.t}</td>
+                    <td className="px-3 py-2">
+                      <span className={row.o === 'BEAT' ? 'text-cyan-400 font-bold' : 'text-orange-400 font-bold'}>{row.o}</span>
+                    </td>
+                    <td className="px-3 py-2">
+                      <span className={`rounded px-2 py-0.5 text-[11px] font-black ${row.r === 'WIN' ? 'bg-green-500/10 text-green-400' : 'bg-red-500/10 text-red-400'}`}>{row.r}</span>
+                    </td>
+                    <td className="px-3 py-2">
+                      <span className={row.s === 10.0 ? 'text-green-400 font-bold' : 'text-blue-400 font-bold'}>{row.s.toFixed(1)}</span>
+                    </td>
+                    <td className="px-3 py-2 text-gray-300">{row.br}</td>
+                    <td className="px-3 py-2 text-gray-400">{row.rc}</td>
+                    <td className="px-3 py-2 text-green-400/80">{row.as}</td>
+                    <td className="px-3 py-2 text-gray-400">{row.est.toFixed(2)}</td>
+                    <td className="px-3 py-2">
+                      <span className={row.act > row.est ? 'text-green-400 font-bold' : 'text-red-400 font-bold'}>{row.act.toFixed(2)}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-3 text-center font-mono text-[11px] text-gray-600">
+            Filtered to YES predictions only. No NO-bet metrics included. Universe: past 31 days, market cap ≥ $100M.
+          </p>
+        </section>
 
         {backtest && (
           <>
