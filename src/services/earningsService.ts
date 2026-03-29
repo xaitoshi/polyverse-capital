@@ -840,7 +840,7 @@ export interface ProAnalysis {
   symbol: string;
   name: string;
   date: string;
-  hour: string;
+  hour: 'bmo' | 'amc' | 'dmh' | '';
   epsEstimate: number | null;
   logo?: string;
   industry?: string;

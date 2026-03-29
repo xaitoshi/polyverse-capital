@@ -15,6 +15,7 @@ import AdminModal from './components/AdminModal';
 import OsintPanel, { OsintAlert } from './components/OsintPanel';
 import TradeModal, { TradeMarket } from './components/TradeModal';
 import PolyEarnPage from './components/PolyEarnPage';
+import EarnPage from './components/EarnPage';
 import ResearchSection from './components/ResearchSection';
 import LiquidityDashboard from './components/LiquidityDashboard';
 import { MarketData } from './data/mockData';
@@ -25,6 +26,8 @@ const SOLANA_RPC = 'https://api.mainnet-beta.solana.com';
 
 export default function App() {
   const wallets = useMemo(() => [new PhantomWalletAdapter()], []);
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : '/';
+  const isStandaloneEarnPage = pathname === '/earn';
   const [selectedMarket, setSelectedMarket] = useState<MarketData | null>(null);
   const [isEcosystemOpen, setIsEcosystemOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
@@ -68,6 +71,16 @@ export default function App() {
     setTradeMarket(m);
     setSelectedMarket(null);
   }, []);
+
+  if (isStandaloneEarnPage) {
+    return (
+      <ConnectionProvider endpoint={SOLANA_RPC}>
+        <WalletProvider wallets={wallets} autoConnect>
+          <EarnPage />
+        </WalletProvider>
+      </ConnectionProvider>
+    );
+  }
 
   return (
     <ConnectionProvider endpoint={SOLANA_RPC}>
